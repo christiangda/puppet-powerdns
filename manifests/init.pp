@@ -54,5 +54,6 @@ class powerdns (
 
   validate_array($package_extra)
 
-
+  Anchor['powerdns::begin']
+    -> Class['powerdns::install']
 }
