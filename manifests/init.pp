@@ -29,13 +29,30 @@
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Author Name <christiangda@gmail.com>
 #
 # === Copyright
 #
-# Copyright 2016 Your name here, unless otherwise noted.
+# Copyright 2016 Christian González.
 #
-class powerdns {
+class powerdns (
+  $package_name   = $powerdns::params::package_name,
+  $package_ensure = $powerdns::params::package_ensure,
+  $package_extra  = $powerdns::params::package_extra,
+) inherits powerdns::params {
+
+  # Fail fast if we're not using a new Puppet version.
+  if versioncmp($::puppetversion, '3.7.0') < 0 {
+    fail('This module requires the use of Puppet v3.7.0 or newer.')
+  }
+
+  validate_string($package_name)
+
+  if ! ($package_ensure in [ 'present', 'installed', 'absent', 'purged', 'held', 'latest' ]) {
+    fail("\"${status}\" is not a valid status parameter value")
+  }
+
+  validate_array($package_extra)
 
 
 }
