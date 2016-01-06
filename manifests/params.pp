@@ -80,7 +80,7 @@ class powerdns::params {
     'socket-dir'                => '/var/run',
     'webserver'                 => 'no',
     'webserver-address'         => '127.0.0.1',
-    'webserver-password'        => '',
+    'webserver-password'        => 'password',
     'webserver-port'            => '8081',
     'webserver-print-arguments' => 'no',
     'wildcard-url'              => 'no',
