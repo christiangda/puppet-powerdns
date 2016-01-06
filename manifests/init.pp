@@ -52,21 +52,26 @@ class powerdns (
   }
 
   if ! ($package_ensure in [ 'present', 'installed', 'absent', 'purged', 'held', 'latest' ]) {
-    fail("\"${status}\" is not a valid status parameter value")
+    fail("\"${::status}\" is not a valid status parameter value")
   }
 
   validate_bool($service_enable)
   validate_bool($service_manage)
 
   if ! ($service_ensure in [ 'running', 'stopped' ]) {
-    fail("\"${status}\" is not a valid status parameter value")
+    fail("\"${::status}\" is not a valid status parameter value")
   }
 
   validate_string($config_file_path)
   validate_string($config_file)
   validate_bool($config_file_backup)
   validate_hash($config)
+
+  $package_name = $::powerdns::params::package_name
   validate_array($package_name)
+
+  $service_name = $::powerdns::params::service_name
+  validate_string($service_name)
 
   # Variable used to merge configd
   $config_options = merge($::powerdns::params::default_config, $config)

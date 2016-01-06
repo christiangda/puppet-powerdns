@@ -9,11 +9,11 @@ class powerdns::backend (
 
   # check if backend backend_name is valid
   if ! ("pdns-backend-${backend_name}" in $::powerdns::params::package_backends) {
-    fail("\"${status}\" is not a valid status parameter value")
+    fail("\"${::status}\" is not a valid status parameter value")
   }
   # check valid values for package ensure param
   if ! ($ensure in [ 'present', 'installed', 'absent', 'purged', 'held', 'latest' ]) {
-    fail("\"${status}\" is not a valid status parameter value")
+    fail("\"${::status}\" is not a valid status parameter value")
   }
 
   # install related package
@@ -23,6 +23,7 @@ class powerdns::backend (
 
   # get the path for backend config file
   $key = 'include-dir'
+  $config_options = $::powerdns::params::config_options
   if is_hash($config_options) and has_key($config_options, $key) {
     $backend_conf_path  = $config_options[$key]
   }

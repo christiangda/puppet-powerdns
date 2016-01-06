@@ -1,0 +1,7 @@
+fixtures:
+  symlinks:
+    powerdns: "#{source_dir}"
+  repositories:
+    stdlib:
+      repo: 'https://github.com/puppetlabs/puppetlabs-stdlib.git'
+      tag:  '4.6.0'

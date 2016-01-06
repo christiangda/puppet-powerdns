@@ -124,15 +124,21 @@ This is where you list OS compatibility, version compatibility, etc.
 
 ## Development
 
-**under construction**
+1. [Fork it](https://github.com/christiangda/puppet-powerdns#fork-destination-box)
+2. [Clone it](https://github.com/christiangda/puppet-powerdns.git) (`git clone https://github.com/christiangda/puppet-powerdns.git; cd puppet-powerdns`)
+3. Create your feature branch (`git checkout -b my-new-feature`)
+4. Commit your changes (`git commit -am 'Added some feature'`)
+5. Push to the branch (`git push origin my-new-feature`)
+6. [Create new Pull Request](https://github.com/christiangda/puppet-powerdns/pull/new/master)
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
 
-## Release Notes/Contributors/Etc **Optional**
+## Authors
 
-**under construction**
+Note: This module is a merge of the work from the following authors:
+* [christiangda](https://github.com/christiangda)
 
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.
+## License
+
+This module is released under the GNU General Public License Version 3 license:
+
+* [http://www.gnu.org/licenses/gpl-3.0-standalone.html](http://www.gnu.org/licenses/gpl-3.0-standalone.html)
