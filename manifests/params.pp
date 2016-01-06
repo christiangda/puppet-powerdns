@@ -7,8 +7,8 @@ class powerdns::params {
   case $::operatingsystem {
     'RedHat', 'Fedora', 'CentOS': {
       # main application
-      $package_name  = 'pdns'
-      $package_extra = [
+      $package_name     = 'pdns'
+      $package_backends = [
         'pdns-backend-geo',
         'pdns-backend-lua',
         'pdns-backend-ldap',
@@ -28,8 +28,8 @@ class powerdns::params {
     }
     'Debian', 'Ubuntu': {
       # main application
-      $package_name  = 'pdns-server'
-      $package_extra = [
+      $package_name     = 'pdns-server'
+      $package_backends = [
         'pdns-backend-geo',
         'pdns-backend-ldap',
         'pdns-backend-lua',
@@ -38,7 +38,7 @@ class powerdns::params {
         'pdns-backend-pipe',
         'pdns-backend-sqlite3',
       ]
-      $package_extra_backend_bind_files = [
+      $package_backends_bind_files = [
         '/etc/powerdns/bindbackend.conf',
         '/etc/powerdns/pdns.d/pdns.simplebind.conf',
         '/etc/powerdns/pdns.d/pdns.local.conf',

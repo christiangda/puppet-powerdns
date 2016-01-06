@@ -8,7 +8,7 @@ class powerdns::backend (
   require powerdns
 
   # check if backend backend_name is valid
-  if ! ( "pdns-backend-${backend_name}" in $::powerdns::params::package_extra) {
+  if ! ( "pdns-backend-${backend_name}" in $::powerdns::params::package_backends) {
     fail("\"${status}\" is not a valid status parameter value")
   }
   # check valid values for package ensure param
@@ -40,7 +40,7 @@ class powerdns::backend (
   }
 
   # Only one backend engine will be working, so, disable default backend
-  file { $::powerdns::params::package_extra_backend_bind_files:
+  file { $::powerdns::params::package_backends_bind_files:
     ensure => absent,
     backup => $::powerdns::params::backend_config_file_backup,
   }
