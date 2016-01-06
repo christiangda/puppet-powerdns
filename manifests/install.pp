@@ -1,6 +1,7 @@
 #
-class powerdns::install (
-    $package_name = undef
+define powerdns::install (
+    $package_name   = $name,
+    $package_ensure = 'present',
   ) {
 
   package { $package_name:

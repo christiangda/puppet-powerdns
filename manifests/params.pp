@@ -28,12 +28,13 @@ class powerdns::params {
         '/etc/pdns/pdns.d/pdns.simplebind.conf',
         '/etc/pdns/pdns.d/pdns.local.conf',
       ]
-      $config_file_path = '/etc/pdns'
-      $config_file      = 'pdns.conf'
+      $config_file_path     = '/etc/pdns'
+      $config_file          = 'pdns.conf'
+      $recursor_config_file = 'recursor.conf'
     }
     'Debian', 'Ubuntu': {
       # main application
-      $package_name     = ['pdns-server']
+      $package_name          = ['pdns-server']
       $package_backends = [
         'pdns-backend-geo',
         'pdns-backend-ldap',
@@ -48,8 +49,10 @@ class powerdns::params {
         '/etc/powerdns/pdns.d/pdns.simplebind.conf',
         '/etc/powerdns/pdns.d/pdns.local.conf',
       ]
-      $config_file_path = '/etc/powerdns'
-      $config_file      = 'pdns.conf'
+      $config_file_path     = '/etc/powerdns'
+      $config_file          = 'pdns.conf'
+      $recursor_config_file = 'recursor.conf'
+
     }
     default: {
       fail("\"${module_name}\" provides no package default value
@@ -108,4 +111,30 @@ class powerdns::params {
     'gmysql-dnssec'   => 'yes',
   }
   $backend_config_file_backup = true
+
+  # Recursor independent OS variables
+  $recursor_package_name   = ['pdns-recursor']
+  $recursor_service_name   = 'pdns-recursor'
+  $recursor_default_config = {
+    'allow-from'              => '127.0.0.1',
+    'config-dir'              => $config_file_path,
+    'daemon'                  => 'yes',
+    'dont-query'              => '127.0.0.1',
+    'local-address'           => '0.0.0.0',
+    'local-port'              => '5300',
+    'logging-facility'        => '0',
+    'log-common-errors'       => 'yes',
+    'max-cache-entries'       => '1000000',
+    'max-cache-ttl'           => '86400',
+    'max-mthreads'            => '2048',
+    'max-negative-ttl'        => '3600',
+    'max-packetcache-entries' => '500000',
+    'max-tcp-clients'         => '128',
+    'max-tcp-per-client'      => '0',
+    'network-timeout'         => '1500',
+    'setgid'                  => 'pdns',
+    'setuid'                  => 'pdns',
+    'quiet'                   => 'yes',
+    'threads'                 => '2',
+  }
 }

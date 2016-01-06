@@ -1,8 +1,8 @@
 #
-class powerdns::config (
+define powerdns::config (
+    $file_name     = $name,
     $values        = undef,
     $file_path     = undef,
-    $file_name     = undef,
     $service_name  = undef,
     $config_backup = true,
   ) {
@@ -17,7 +17,6 @@ class powerdns::config (
     path    => $file,
     content => template("${module_name}/config/KEY-VALUE-conf-file.erb"),
     mode    => '0600',
-    notify  => Service[$service_name],
     backup  => $config_backup,
   }
 

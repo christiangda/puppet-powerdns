@@ -68,21 +68,14 @@ class powerdns (
   validate_hash($config)
   validate_array($package_name)
 
-  # Variable used by template file in config.pp
+  # Variable used to merge configd
   $config_options = merge($::powerdns::params::default_config, $config)
 
-  class{'powerdns::install':
-    package_name => $package_name,
-  } ->
-  class{'powerdns::config':
+  ::powerdns::install { $package_name: } ->
+  ::powerdns::config { $config_file:
     values       => $config_options,
     file_path    => $config_file_path,
-    file_name    => $config_file,
     service_name => $service_name,
   } ->
-  class{'powerdns::service':
-    service_name => $service_name,
-  } ->
-  Class['powerdns']
-
+  ::powerdns::service { $service_name: }
 }
