@@ -23,7 +23,8 @@ class powerdns::params {
         'pdns-backend-tinydns',
         'pdns-backend-postgresql',
       ]
-      $config_file = '/etc/pdns/pdns.conf'
+      $config_file_path = '/etc/pdns'
+      $config_file      = 'pdns.conf'
     }
     'Debian', 'Ubuntu': {
       # main application
@@ -43,7 +44,8 @@ class powerdns::params {
         '/etc/powerdns/pdns.d/pdns.simplebind.conf',
         '/etc/powerdns/pdns.d/pdns.local.conf',
       ]
-      $config_file = '/etc/powerdns/pdns.conf'
+      $config_file_path = '/etc/powerdns'
+      $config_file      = 'pdns.conf'
     }
     default: {
       fail("\"${module_name}\" provides no package default value
@@ -59,7 +61,7 @@ class powerdns::params {
   $default_config     = {
     'allow-recursion'           => '127.0.0.1',
     'cache-ttl'                 => '20',
-    'config-dir'                => '/etc/powerdns',
+    'config-dir'                => $config_file_path,
     'daemon'                    => 'yes',
     'disable-tcp'               => 'no',
     'guardian'                  => 'yes',
@@ -84,7 +86,7 @@ class powerdns::params {
     'webserver-port'            => '8081',
     'webserver-print-arguments' => 'no',
     'wildcard-url'              => 'no',
-    'include-dir'               => '/etc/powerdns/pdns.d',
+    'include-dir'               => "${config_file_path}/pdns.d",
   }
 
   # Default backend configuration

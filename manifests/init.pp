@@ -39,6 +39,7 @@ class powerdns (
   $package_ensure     = $::powerdns::params::package_ensure,
   $service_enable     = $::powerdns::params::service_enable,
   $service_ensure     = $::powerdns::params::service_ensure,
+  $config_file_path   = $::powerdns::params::config_file_path,
   $config_file        = $::powerdns::params::config_file,
   $config_file_backup = $::powerdns::params::config_file_backup,
   $config             = {},
@@ -59,6 +60,7 @@ class powerdns (
     fail("\"${status}\" is not a valid status parameter value")
   }
 
+  validate_string($config_file_path)
   validate_string($config_file)
   validate_bool($config_file_backup)
   validate_hash($config)
