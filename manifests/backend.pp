@@ -21,15 +21,15 @@ class powerdns::backend (
     ensure => $ensure,
   }
 
-  # Variable used by template file
-  $options = merge($::powerdns::params::default_backend_config, $config)
-
   # get the path for backend config file
   $key = 'include-dir'
   if is_hash($config_options) and has_key($config_options, $key) {
     $backend_conf_path  = $config_options[$key]
   }
   $config_file = "${backend_conf_path}/${::powerdns::params::default_backend_config_file_prefix}.g${backend_name}.conf"
+
+  # Variable used by template file
+  $options = merge($::powerdns::params::default_backend_config, $config)
 
   file { $config_file:
     ensure  => present,

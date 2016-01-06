@@ -65,8 +65,7 @@ class powerdns::params {
     'guardian'                  => 'yes',
     'local-address'             => '0.0.0.0',
     'local-port'                => '53',
-    'logfile'                   => '/var/log/pdns.log',
-    'loglevel'                  => '4',
+    'logging-facility'          => '0',
     'master'                    => 'no',
     'max-tcp-connections'       => '10',
     'module-dir'                => '/usr/lib/powerdns',
@@ -79,7 +78,6 @@ class powerdns::params {
     'soa-expire-default'        => '604800',
     'soa-serial-offset'         => '0',
     'socket-dir'                => '/var/run',
-    'use-logfile'               => 'yes',
     'webserver'                 => 'no',
     'webserver-address'         => '127.0.0.1',
     'webserver-password'        => '',
@@ -91,9 +89,9 @@ class powerdns::params {
 
   # Default backend configuration
   $default_backend_config_file_prefix = 'pdns.local'
-  $default_backend_name               = 'mysql'
-  $default_backend_ensure             = 'present'
-  $default_backend_config             = {
+  $default_backend_name   = 'mysql'
+  $default_backend_ensure = 'present'
+  $default_backend_config = {
     'launch'          => 'gmysql',
     'gmysql-host'     => 'localhost',
     'gmysql-port'     => '3306',
@@ -102,5 +100,5 @@ class powerdns::params {
     'gmysql-password' => '9Ep67XAKONE9',
     'gmysql-dnssec'   => 'yes',
   }
-  $backend_config_file_backup        = true
+  $backend_config_file_backup = true
 }
