@@ -44,7 +44,7 @@ class powerdns (
   $config_file        = $::powerdns::params::config_file,
   $config_file_backup = $::powerdns::params::config_file_backup,
   $config             = {},
-) inherits powerdns::params {
+  ) inherits powerdns::params {
 
   # Fail fast if we're not using a new Puppet version.
   if versioncmp($::puppetversion, '3.7.0') < 0 {
@@ -70,7 +70,9 @@ class powerdns (
   # Variable used by template file in config.pp
   $config_options = merge($::powerdns::params::default_config, $config)
 
-  class{'powerdns::install':} ->
+  class{'powerdns::install':
+    package_name => $package_name,
+  } ->
   class{'powerdns::config':
     values       => $config_options,
     file_path    => $config_file_path,

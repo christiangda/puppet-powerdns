@@ -8,7 +8,7 @@ class powerdns::backend (
   require powerdns
 
   # check if backend backend_name is valid
-  if ! ( "pdns-backend-${backend_name}" in $::powerdns::params::package_backends) {
+  if ! ("pdns-backend-${backend_name}" in $::powerdns::params::package_backends) {
     fail("\"${status}\" is not a valid status parameter value")
   }
   # check valid values for package ensure param
