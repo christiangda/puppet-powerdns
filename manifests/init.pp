@@ -63,6 +63,9 @@ class powerdns (
   validate_bool($config_file_backup)
   validate_hash($config)
 
+  # Variable used by template file in config.pp
+  $config_options = merge($::powerdns::params::default_config, $config)
+
   class{'powerdns::install':} ->
   class{'powerdns::config':} ->
   class{'powerdns::service':} ->

@@ -41,6 +41,7 @@ class powerdns::params {
       $package_extra_backend_bind_files = [
         '/etc/powerdns/bindbackend.conf',
         '/etc/powerdns/pdns.d/pdns.simplebind.conf',
+        '/etc/powerdns/pdns.d/pdns.local.conf',
       ]
       $config_file = '/etc/powerdns/pdns.conf'
     }
@@ -87,4 +88,19 @@ class powerdns::params {
     'wildcard-url'              => 'no',
     'include-dir'               => '/etc/powerdns/pdns.d',
   }
+
+  # Default backend configuration
+  $default_backend_config_file_prefix = 'pdns.local'
+  $default_backend_name               = 'mysql'
+  $default_backend_ensure             = 'present'
+  $default_backend_config             = {
+    'launch'          => 'gmysql',
+    'gmysql-host'     => 'localhost',
+    'gmysql-port'     => '3306',
+    'gmysql-dbname'   => 'pdns',
+    'gmysql-user'     => 'pdns',
+    'gmysql-password' => '9Ep67XAKONE9',
+    'gmysql-dnssec'   => 'yes',
+  }
+  $backend_config_file_backup        = true
 }
