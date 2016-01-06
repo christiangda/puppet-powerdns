@@ -29,16 +29,19 @@
 #
 # === Authors
 #
-# Author Name <christiangda@gmail.com>
+# Christian Gonzalez <christiangda@gmail.com>
 #
 # === Copyright
 #
-# Copyright 2016 Christian González.
+# Copyright 2016 Christian Gonzalez.
 #
 class powerdns (
-  $package_name   = $powerdns::params::package_name,
-  $package_ensure = $powerdns::params::package_ensure,
-  $package_extra  = $powerdns::params::package_extra,
+  $package_ensure     = $::powerdns::params::package_ensure,
+  $service_enable     = $::powerdns::params::service_enable,
+  $service_ensure     = $::powerdns::params::service_ensure,
+  $config_file        = $::powerdns::params::config_file,
+  $config_file_backup = $::powerdns::params::config_file_backup,
+  $config             = {},
 ) inherits powerdns::params {
 
   # Fail fast if we're not using a new Puppet version.
@@ -46,14 +49,23 @@ class powerdns (
     fail('This module requires the use of Puppet v3.7.0 or newer.')
   }
 
-  validate_string($package_name)
-
   if ! ($package_ensure in [ 'present', 'installed', 'absent', 'purged', 'held', 'latest' ]) {
     fail("\"${status}\" is not a valid status parameter value")
   }
 
-  validate_array($package_extra)
+  validate_bool($service_enable)
 
-  Anchor['powerdns::begin']
-    -> Class['powerdns::install']
+  if ! ($service_ensure in [ 'running', 'stopped' ]) {
+    fail("\"${status}\" is not a valid status parameter value")
+  }
+
+  validate_string($config_file)
+  validate_bool($config_file_backup)
+  validate_hash($config)
+
+  class{'powerdns::install':} ->
+  class{'powerdns::config':} ->
+  class{'powerdns::service':} ->
+  Class['powerdns']
+
 }

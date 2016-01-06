@@ -1,6 +1,8 @@
 #
 #
 class powerdns::params {
+
+  $package_ensure = 'present'
   # packages
   case $::operatingsystem {
     'RedHat', 'Fedora', 'CentOS': {
@@ -21,6 +23,7 @@ class powerdns::params {
         'pdns-backend-tinydns',
         'pdns-backend-postgresql',
       ]
+      $config_file = '/etc/pdns/pdns.conf'
     }
     'Debian', 'Ubuntu': {
       # main application
@@ -39,6 +42,7 @@ class powerdns::params {
         '/etc/powerdns/bindbackend.conf',
         '/etc/powerdns/pdns.d/pdns.simplebind.conf',
       ]
+      $config_file = '/etc/powerdns/pdns.conf'
     }
     default: {
       fail("\"${module_name}\" provides no package default value
@@ -46,5 +50,41 @@ class powerdns::params {
     }
   }
 
-  $package_ensure = 'present'
+  $service_name   = 'pdns'
+  $service_enable = true
+  $service_ensure = 'running'
+
+  $config_file_backup = true
+  $default_config     = {
+    'allow-recursion'           => '127.0.0.1',
+    'cache-ttl'                 => '20',
+    'config-dir'                => '/etc/powerdns',
+    'daemon'                    => 'yes',
+    'disable-tcp'               => 'no',
+    'guardian'                  => 'yes',
+    'local-address'             => '0.0.0.0',
+    'local-port'                => '53',
+    'logfile'                   => '/var/log/pdns.log',
+    'loglevel'                  => '4',
+    'master'                    => 'no',
+    'max-tcp-connections'       => '10',
+    'module-dir'                => '/usr/lib/powerdns',
+    'setgid'                    => 'pdns',
+    'setuid'                    => 'pdns',
+    'slave'                     => 'no',
+    'soa-minimum-ttl'           => '3600',
+    'soa-refresh-default'       => '10800',
+    'soa-retry-default'         => '3600',
+    'soa-expire-default'        => '604800',
+    'soa-serial-offset'         => '0',
+    'socket-dir'                => '/var/run',
+    'use-logfile'               => 'yes',
+    'webserver'                 => 'no',
+    'webserver-address'         => '127.0.0.1',
+    'webserver-password'        => '',
+    'webserver-port'            => '8081',
+    'webserver-print-arguments' => 'no',
+    'wildcard-url'              => 'no',
+    'include-dir'               => '/etc/powerdns/pdns.d',
+  }
 }

@@ -1,7 +1,7 @@
 {
   "name": "christiangda-powerdns",
   "version": "0.1.0",
-  "author": "Christian González <christiangda@gmail.com>",
+  "author": "Christian Gonzalez <christiangda@gmail.com>",
   "summary": "PowerDNS provisioner Module",
   "license": "GPL-3.0",
   "source": "https://github.com/christiangda/puppet-powerdns",
@@ -11,4 +11,3 @@
     {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
   ]
 }
-
