@@ -23,6 +23,11 @@ class powerdns::params {
         'pdns-backend-tinydns',
         'pdns-backend-postgresql',
       ]
+      $package_backends_bind_files = [
+        '/etc/pdns/bindbackend.conf',
+        '/etc/pdns/pdns.d/pdns.simplebind.conf',
+        '/etc/pdns/pdns.d/pdns.local.conf',
+      ]
       $config_file_path = '/etc/pdns'
       $config_file      = 'pdns.conf'
     }
