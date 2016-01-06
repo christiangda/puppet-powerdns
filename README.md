@@ -1,4 +1,4 @@
-# powerdns
+# [Puppet](https://puppetlabs.com/) ::powerdns module
 
 #### Table of Contents
 
@@ -15,48 +15,98 @@
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+This is a [Puppet](https://puppetlabs.com/) module to manages [PowerDNS](https://www.powerdns.com/) tool.  With this module you can installs, configures, and manages the [PowerDNS](https://www.powerdns.com/) services.
+
+This module were designed to work with [Puppet](https://puppetlabs.com/) version >= 3.7.0
 
 ## Module Description
 
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
-
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
+[PowerDNS](https://www.powerdns.com/) consists of two parts: the Authoritative Server and the Recursor, and you can use this module to configure both.
+For both [PowerDNS](https://www.powerdns.com/) operation modes, you could install, configure and manage the services,  is very easy used this to configure your [PowerDNS](https://www.powerdns.com/), in fact, you have predefined configuration values to put and run.
 
 ## Setup
 
-### What powerdns affects
+### What ::powerdns affects
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
+* Debian Family:
+    1. Packages [
+      'pdns-backend-geo',
+      'pdns-backend-ldap',
+      'pdns-backend-lua',
+      'pdns-backend-mysql',
+      'pdns-backend-pgsql',
+      'pdns-backend-pipe',
+      'pdns-backend-sqlite3'
+    ]
+    2. Files [
+      '/etc/powerdns/bindbackend.conf',
+      '/etc/powerdns/pdns.d/pdns.simplebind.conf',
+      '/etc/powerdns/pdns.d/pdns.local.conf',
+    ]
+    3. Services [
+      'pdns'
+    ]
+* RedHat Family
+    1. Packages [
+      'pdns-backend-geo',
+      'pdns-backend-lua',
+      'pdns-backend-ldap',
+      'pdns-backend-lmdb',
+      'pdns-backend-pipe',
+      'pdns-backend-geoip',
+      'pdns-backend-mydns',
+      'pdns-backend-mysql',
+      'pdns-backend-remote',
+      'pdns-backend-sqlite',
+      'pdns-backend-opendbx',
+      'pdns-backend-tinydns',
+      'pdns-backend-postgresql'
+    ]
+    2. Files [
+      '/etc/pdns/bindbackend.conf',
+      '/etc/pdns/pdns.d/pdns.simplebind.conf',
+      '/etc/pdns/pdns.d/pdns.local.conf'
+    ]
+    3. Services [
+      'pdns-recursor'
+    ]
 
-### Setup Requirements **OPTIONAL**
+* Is very important to know about [PowerDNS](https://www.powerdns.com/) to use this [Puppet](https://puppetlabs.com/) module.
 
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
+### Beginning with ::powerdns
 
-### Beginning with powerdns
+You can use
+```puppet
+include ::powerdns
+include ::powerdns::backend
+```
+or
+```puppet
+class { '::powerdns': }
+class { '::powerdns::backend': }
+```
+to install and configure [PowerDNS](https://www.powerdns.com/) with Default module parameters.
 
-The very basic steps needed for a user to get the module up and running.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+additional you could use
+```puppet
+include ::powerdns::recursor
+```
+or
+```puppet
+class { '::powerdns::recursor': }
+```
+if you want to configure [PowerDNS](https://www.powerdns.com/) Recursor service.
 
 ## Usage
+
+**under construction**
 
 Put the classes, types, and resources for customizing, configuring, and doing
 the fancy stuff with your module here.
 
 ## Reference
+
+**under construction**
 
 Here, list the classes, types, providers, facts, etc contained in your module.
 This section should include all of the under-the-hood workings of your module so
@@ -65,14 +115,20 @@ with things. (We are working on automating this section!)
 
 ## Limitations
 
+**under construction**
+
 This is where you list OS compatibility, version compatibility, etc.
 
 ## Development
+
+**under construction**
 
 Since your module is awesome, other users will want to play with it. Let them
 know what the ground rules for contributing are.
 
 ## Release Notes/Contributors/Etc **Optional**
+
+**under construction**
 
 If you aren't using changelog, put your release notes here (though you should
 consider using changelog). You may also add any additional sections you feel are
