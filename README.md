@@ -1,5 +1,8 @@
 # [Puppet](https://puppetlabs.com/) ::powerdns module
 
+[![Puppet Forge](http://img.shields.io/puppetforge/v/christiangda/powerdns.svg)](https://forge.puppetlabs.com/christiangda/powerdns)
+[![Build Status](https://travis-ci.org/christiangda/puppet-powerdns.svg?branch=master)](https://travis-ci.org/christiangda/puppet-powerdns)
+
 #### Table of Contents
 
 1. [Overview](#overview)
