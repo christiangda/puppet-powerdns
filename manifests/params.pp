@@ -97,7 +97,7 @@ class powerdns::params {
     'gmysql-port'     => '3306',
     'gmysql-dbname'   => 'pdns',
     'gmysql-user'     => 'pdns',
-    'gmysql-password' => '9Ep67XAKONE9',
+    'gmysql-password' => 'password',
     'gmysql-dnssec'   => 'yes',
   }
   $backend_config_file_backup = true
