@@ -1,7 +1,12 @@
 #
-class powerdns::service inherits powerdns {
+class powerdns::service (
+    $service_name   = undef,
+    $service_ensure = 'running',
+    $service_enable = true,
+    $service_manage = true,
+  ) {
 
-  if $powerdns::service_manage == true {
+  if $service_manage == true {
     service { 'pdns':,
       ensure     => $service_ensure,
       name       => $service_name,
