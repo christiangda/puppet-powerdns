@@ -39,4 +39,10 @@ class powerdns::backend (
     backup  => $::powerdns::params::backend_config_file_backup,
   }
 
+  # Only one backend engine will be working, so, disable default backend
+  file { $::powerdns::params::package_extra_backend_bind_files:
+    ensure => absent,
+    backup => $::powerdns::params::backend_config_file_backup,
+  }
+
 }
