@@ -37,7 +37,6 @@ class powerdns::params {
         'pdns-backend-pgsql',
         'pdns-backend-pipe',
         'pdns-backend-sqlite3',
-        'pdns-recursor',
       ]
       $package_extra_backend_bind_files = [
         '/etc/powerdns/bindbackend.conf',
