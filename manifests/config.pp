@@ -11,6 +11,7 @@ class powerdns::config inherits powerdns {
     path    => $file,
     content => template("${module_name}/config/KEY-VALUE-conf-file.erb"),
     mode    => '0600',
+    notify  => Service[$::powerdns::params::service_name],
     backup  => $config_file_backup,
   }
 
