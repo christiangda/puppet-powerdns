@@ -71,7 +71,12 @@ class powerdns (
   $config_options = merge($::powerdns::params::default_config, $config)
 
   class{'powerdns::install':} ->
-  class{'powerdns::config':} ->
+  class{'powerdns::config':
+    values       => $config_options,
+    file_path    => $config_file_path,
+    file_name    => $config_file,
+    service_name => $service_name,
+  } ->
   class{'powerdns::service':} ->
   Class['powerdns']
 

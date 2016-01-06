@@ -1,26 +1,32 @@
 #
-class powerdns::config inherits powerdns {
+class powerdns::config (
+    $values        = undef,
+    $file_path     = undef,
+    $file_name     = undef,
+    $service_name  = undef,
+    $config_backup = true,
+  ) {
 
-  # Variable used by template file
-  $options = $config_options
+  # Variable used in template file
+  $options = $values
 
-  $file = "${config_file_path}/${config_file}"
+  $file = "${file_path}/${file_name}"
 
   file { $file:
     ensure  => present,
     path    => $file,
     content => template("${module_name}/config/KEY-VALUE-conf-file.erb"),
     mode    => '0600',
-    notify  => Service[$::powerdns::params::service_name],
-    backup  => $config_file_backup,
+    notify  => Service[$service_name],
+    backup  => $config_backup,
   }
 
   # Create the log file
   # get the path for log file
   $key = 'logfile'
-  if is_hash($config_options) and has_key($config_options, $key) {
+  if is_hash($options) and has_key($options, $key) {
 
-    $logfile  = $config_options[$key]
+    $logfile  = $options[$key]
 
     file { $logfile:
       ensure => present,
