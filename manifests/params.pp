@@ -7,7 +7,7 @@ class powerdns::params {
   case $::operatingsystem {
     'RedHat', 'Fedora', 'CentOS': {
       # main application
-      $package_name     = 'pdns'
+      $package_name     = ['pdns', 'pdns-tools']
       $package_backends = [
         'pdns-backend-geo',
         'pdns-backend-lua',
@@ -33,7 +33,7 @@ class powerdns::params {
     }
     'Debian', 'Ubuntu': {
       # main application
-      $package_name     = 'pdns-server'
+      $package_name     = ['pdns-server']
       $package_backends = [
         'pdns-backend-geo',
         'pdns-backend-ldap',
