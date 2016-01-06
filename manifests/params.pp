@@ -56,6 +56,7 @@ class powerdns::params {
   $service_name   = 'pdns'
   $service_enable = true
   $service_ensure = 'running'
+  $service_manage = true
 
   $config_file_backup = true
   $default_config     = {

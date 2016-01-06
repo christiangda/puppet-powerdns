@@ -39,6 +39,7 @@ class powerdns (
   $package_ensure     = $::powerdns::params::package_ensure,
   $service_enable     = $::powerdns::params::service_enable,
   $service_ensure     = $::powerdns::params::service_ensure,
+  $service_manage     = $::powerdns::params::service_manage,
   $config_file_path   = $::powerdns::params::config_file_path,
   $config_file        = $::powerdns::params::config_file,
   $config_file_backup = $::powerdns::params::config_file_backup,
@@ -55,6 +56,7 @@ class powerdns (
   }
 
   validate_bool($service_enable)
+  validate_bool($service_manage)
 
   if ! ($service_ensure in [ 'running', 'stopped' ]) {
     fail("\"${status}\" is not a valid status parameter value")
