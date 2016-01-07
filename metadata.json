@@ -1,6 +1,6 @@
 {
   "name": "christiangda-powerdns",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Christian Gonzalez <christiangda@gmail.com>",
   "summary": "PowerDNS provisioner Module",
   "license": "GPL-3.0",
