@@ -7,6 +7,11 @@ PuppetLint.configuration.send('disable_80chars')
 PuppetLint.configuration.send('disable_class_inherits_from_params_class')
 PuppetLint.configuration.ignore_paths = ["spec/**/*.pp", "pkg/**/*.pp"]
 
+Blacksmith::RakeTask.new do |t|
+  t.tag_pattern = "v%s" # Use a custom pattern with git tag. %s is replaced with the version number.
+  t.build = false # do not build the module nor push it to the Forge, just do the tagging [:clean, :tag, :bump_commit]
+end
+
 desc "Validate manifests, templates, and ruby files"
 task :validate do
   Dir['manifests/**/*.pp'].each do |manifest|

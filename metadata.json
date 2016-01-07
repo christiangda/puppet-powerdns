@@ -1,6 +1,6 @@
 {
   "name": "christiangda-powerdns",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Christian Gonzalez <christiangda@gmail.com>",
   "summary": "PowerDNS provisioner Module",
   "license": "GPL-3.0",
@@ -8,13 +8,31 @@
   "project_page": "https://github.com/christiangda/puppet-powerdns",
   "issues_url": "https://github.com/christiangda/puppet-powerdns/issues",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 4.6.0 < 5.0.0"}
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 4.6.0 < 5.0.0"
+    }
   ],
   "requirements": [
-   {"name": "puppet","version_requirement": ">= 3.7.0"}
+    {
+      "name": "puppet",
+      "version_requirement": ">= 3.7.0"
+    }
   ],
   "operatingsystem_support": [
-   {"operatingsystem": "RedHat","operatingsystemrelease": ["6.0","7.0"]},
-   {"operatingsystem": "Debian","operatingsystemrelease": ["7.0","8.0"]}
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6.0",
+        "7.0"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "7.0",
+        "8.0"
+      ]
+    }
   ]
 }
