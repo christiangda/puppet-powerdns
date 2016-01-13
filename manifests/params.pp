@@ -60,40 +60,21 @@ class powerdns::params {
     }
   }
 
-  $service_name   = 'pdns'
-  $service_enable = true
-  $service_ensure = 'running'
-  $service_manage = true
+  $service_name    = 'pdns'
+  $service_enable  = true
+  $service_ensure  = 'running'
+  $service_manage  = true
+  $service_restart = true,
+  $service_status  = true,
 
   $config_file_backup = true
   $default_config     = {
     'allow-recursion'           => '127.0.0.1',
-    '#cache-ttl'                 => '20',
     'config-dir'                => $config_file_path,
-    '#daemon'                    => 'yes',
-    '#disable-tcp'               => 'no',
-    '#guardian'                  => 'yes',
     'local-address'             => '0.0.0.0',
     'local-port'                => '53',
-    '#logging-facility'          => '0',
-    '#master'                    => 'no',
-    '#max-tcp-connections'       => '10',
-    '#module-dir'                => '/usr/lib/powerdns',
     'setgid'                    => 'pdns',
     'setuid'                    => 'pdns',
-    '#slave'                     => 'no',
-    '#soa-minimum-ttl'           => '3600',
-    '#soa-refresh-default'       => '10800',
-    '#soa-retry-default'         => '3600',
-    '#soa-expire-default'        => '604800',
-    '#soa-serial-offset'         => '0',
-    '#socket-dir'                => '/var/run',
-    '#webserver'                 => 'no',
-    '#webserver-address'         => '127.0.0.1',
-    '#webserver-password'        => 'password',
-    '#webserver-port'            => '8081',
-    '#webserver-print-arguments' => 'no',
-    '#wildcard-url'              => 'no',
     'include-dir'               => "${config_file_path}/pdns.d",
   }
 
@@ -113,29 +94,14 @@ class powerdns::params {
   $backend_config_file_backup = true
 
   # Recursor independent OS variables
-  $recursor_package_name   = ['pdns-recursor']
-  $recursor_service_name   = 'pdns-recursor'
-  $recursor_default_config = {
+  $recursor_package_name    = ['pdns-recursor']
+  $recursor_service_name    = 'pdns-recursor'
+  $recursor_service_restart = true,
+  $recursor_service_status  = true,
+  $recursor_default_config  = {
     'allow-from'               => '127.0.0.1',
-    '#forward-zones'           => '.=127.0.0.1;8.8.8.8',
     'config-dir'               => $config_file_path,
-    '#daemon'                   => 'yes',
-    '#dont-query'              => '127.0.0.1/8',
-    '#local-address'            => '0.0.0.0',
-    '#local-port'               => '53',
-    '#logging-facility'         => '0',
-    '#log-common-errors'        => 'yes',
-    '#max-cache-entries'       => '1000000',
-    '#max-cache-ttl'           => '86400',
-    '#max-mthreads'            => '2048',
-    '#max-negative-ttl'        => '3600',
-    '#max-packetcache-entries' => '500000',
-    '#max-tcp-clients'         => '128',
-    '#max-tcp-per-client'      => '0',
-    '#network-timeout'         => '1500',
     'setgid'                   => 'pdns',
     'setuid'                   => 'pdns',
-    '#quiet'                    => 'yes',
-    '#threads'                  => '2',
   }
 }
