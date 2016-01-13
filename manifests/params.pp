@@ -64,8 +64,8 @@ class powerdns::params {
   $service_enable  = true
   $service_ensure  = 'running'
   $service_manage  = true
-  $service_restart = true,
-  $service_status  = true,
+  $service_restart = true
+  $service_status  = true
 
   $config_file_backup = true
   $default_config     = {
@@ -96,8 +96,8 @@ class powerdns::params {
   # Recursor independent OS variables
   $recursor_package_name    = ['pdns-recursor']
   $recursor_service_name    = 'pdns-recursor'
-  $recursor_service_restart = true,
-  $recursor_service_status  = true,
+  $recursor_service_restart = true
+  $recursor_service_status  = true
   $recursor_default_config  = {
     'allow-from'               => '127.0.0.1',
     'config-dir'               => $config_file_path,
