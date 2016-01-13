@@ -6,6 +6,7 @@ class powerdns::recursor (
   $service_manage     = $::powerdns::params::service_manage,
   $service_restart    = $::powerdns::params::recursor_service_restart,
   $service_status     = $::powerdns::params::recursor_service_status,
+  $service_status_cmd = $::powerdns::params::recursor_service_status_cmd,
   $config_file_path   = $::powerdns::params::config_file_path,
   $config_file        = $::powerdns::params::recursor_config_file,
   $config_file_backup = $::powerdns::params::config_file_backup,
@@ -44,7 +45,8 @@ class powerdns::recursor (
     service_name => $service_name,
   } ->
   ::powerdns::service { $service_name:
-    service_restart => $service_restart,
-    service_status  => $service_status,
+    service_restart    => $service_restart,
+    service_status     => $service_status,
+    service_status_cmd => $service_status_cmd,
   }
 }

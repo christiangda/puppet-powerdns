@@ -60,12 +60,13 @@ class powerdns::params {
     }
   }
 
-  $service_name    = 'pdns'
-  $service_enable  = true
-  $service_ensure  = 'running'
-  $service_manage  = true
-  $service_restart = true
-  $service_status  = true
+  $service_name       = 'pdns'
+  $service_enable     = true
+  $service_ensure     = 'running'
+  $service_manage     = true
+  $service_restart    = true
+  $service_status     = true
+  $service_status_cmd = '/usr/bin/pdns_control ping 2>/dev/null 1>/dev/null'
 
   $config_file_backup = true
   $default_config     = {
@@ -94,11 +95,12 @@ class powerdns::params {
   $backend_config_file_backup = true
 
   # Recursor independent OS variables
-  $recursor_package_name    = ['pdns-recursor']
-  $recursor_service_name    = 'pdns-recursor'
-  $recursor_service_restart = true
-  $recursor_service_status  = true
-  $recursor_default_config  = {
+  $recursor_package_name       = ['pdns-recursor']
+  $recursor_service_name       = 'pdns-recursor'
+  $recursor_service_restart    = true
+  $recursor_service_status     = true
+  $recursor_service_status_cmd = '/usr/bin/rec_control ping 2>/dev/null 1>/dev/null'
+  $recursor_default_config     = {
     'allow-from'               => '127.0.0.1',
     'config-dir'               => $config_file_path,
     'setgid'                   => 'pdns',

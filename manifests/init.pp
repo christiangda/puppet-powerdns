@@ -42,6 +42,7 @@ class powerdns (
   $service_manage     = $::powerdns::params::service_manage,
   $service_restart    = $::powerdns::params::service_restart,
   $service_status     = $::powerdns::params::service_status,
+  $service_status_cmd = $::powerdns::params::service_status_cmd,
   $config_file_path   = $::powerdns::params::config_file_path,
   $config_file        = $::powerdns::params::config_file,
   $config_file_backup = $::powerdns::params::config_file_backup,
@@ -85,7 +86,8 @@ class powerdns (
     service_name => $service_name,
   } ->
   ::powerdns::service { $service_name:
-    service_restart => $service_restart,
-    service_status  => $service_status,
+    service_restart    => $service_restart,
+    service_status     => $service_status,
+    service_status_cmd => $service_status_cmd,
   }
 }
