@@ -34,6 +34,8 @@ class powerdns::recursor (
 
   $service_name = $::powerdns::params::recursor_service_name
   validate_string($service_name)
+  validate_bool(service_restart)
+  validate_bool(service_status)
 
   # Variable used to merge configd
   $config_options = merge($::powerdns::params::recursor_default_config, $config)

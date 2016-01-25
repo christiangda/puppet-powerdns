@@ -29,8 +29,15 @@ class powerdns::backend (
   }
   $config_file = "${backend_conf_path}/${::powerdns::params::default_backend_config_file_prefix}.g${backend_name}.conf"
 
-  # Variable used by template file
-  $options = merge($::powerdns::params::default_backend_config, $config)
+  # check valid values for package ensure param
+  if ($backend_name  == 'mysql') {
+    # Variable used by template file
+    $options = merge($::powerdns::params::default_backend_config, $config)
+  } elsif is_hash($config) {
+      $options = $config
+  } else {
+    fail("\"${::status}\" is not a valid status parameter value")
+  }
 
   file { $config_file:
     ensure  => present,

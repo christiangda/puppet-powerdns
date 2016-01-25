@@ -102,10 +102,41 @@ if you want to configure [PowerDNS](https://www.powerdns.com/) Recursor service.
 
 ## Usage
 
-**under construction**
+For more specific configuration of powerdns class you can use:
+```puppet
+class { '::powerdns':
+  package_ensure     => 'present',
+  service_enable     => true,
+  service_ensure     => 'running',
+  service_status     => true,
+  service_status_cmd => '/usr/bin/pdns_control ping 2>/dev/null 1>/dev/null'
+}
+```
+To configure PostgreSQL as backend, you can do:
+```puppet
+class { '::powerdns::backend':
+  backend_name => 'pgsql',
+  ensure       => true,
+  config       => {
+    launch          => 'gpgsql',
+    gpgsql-host     => 'localhost',
+    gpgsql-port     => '3306',
+    gpgsql-dbname   => 'mypdnsdb',
+    gpgsql-user     => 'mypdnsuser',
+    gpgsql-password => 'mypassword',
+  }
+}
+```
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+```puppet
+class { '::powerdns::recursor':
+  package_ensure     => 'present',
+  service_enable     => true,
+  service_ensure     => 'running',
+  service_status     => true,
+  service_status_cmd => '/usr/bin/rec_control ping 2>/dev/null 1>/dev/null'
+}
+```
 
 ## Reference
 
