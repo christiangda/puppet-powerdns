@@ -109,7 +109,13 @@ class { '::powerdns':
   service_enable     => true,
   service_ensure     => 'running',
   service_status     => true,
-  service_status_cmd => '/usr/bin/pdns_control ping 2>/dev/null 1>/dev/null'
+  service_status_cmd => '/usr/bin/pdns_control ping 2>/dev/null 1>/dev/null',
+  # All the values in config hash could be extracted from: https://doc.powerdns.com/md/authoritative/settings/
+  config => {
+    allow-from      => '192.168.1.0/24',
+    local-port      => 53,
+    query-cache-ttl => 20,
+  }
 }
 ```
 To configure PostgreSQL as backend, you can do:
@@ -117,6 +123,7 @@ To configure PostgreSQL as backend, you can do:
 class { '::powerdns::backend':
   backend_name => 'pgsql',
   ensure       => true,
+  # All the values in config hash could be extracted from: https://doc.powerdns.com/md/authoritative/
   config       => {
     launch          => 'gpgsql',
     gpgsql-host     => 'localhost',
@@ -128,6 +135,7 @@ class { '::powerdns::backend':
 }
 ```
 
+For more specific configuration of PowerDNS Recursor class you can use:
 ```puppet
 class { '::powerdns::recursor':
   package_ensure     => 'present',
@@ -135,6 +143,13 @@ class { '::powerdns::recursor':
   service_ensure     => 'running',
   service_status     => true,
   service_status_cmd => '/usr/bin/rec_control ping 2>/dev/null 1>/dev/null'
+  # All the values in config hash could be extracted from: https://doc.powerdns.com/md/recursor/settings/
+  config => {
+    allow-from                 => '192.168.1.0/24',
+    aaaa-additional-processing => true,
+    local-port                 => 5353,
+    etc-hosts-file             => '/etc/hosts',
+  }
 }
 ```
 
