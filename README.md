@@ -122,7 +122,7 @@ To configure PostgreSQL as backend, you can do:
 ```puppet
 class { '::powerdns::backend':
   backend_name => 'pgsql',
-  ensure       => true,
+  ensure       => 'present',
   # All the values in config hash could be extracted from: https://doc.powerdns.com/md/authoritative/
   config       => {
     launch          => 'gpgsql',
