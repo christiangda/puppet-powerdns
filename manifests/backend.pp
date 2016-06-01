@@ -23,7 +23,7 @@ class powerdns::backend (
 
   # get the path for backend config file
   $key = 'include-dir'
-  $config_options = $::powerdns::params::config_options
+  $config_options = $::powerdns::params::default_config
   if is_hash($config_options) and has_key($config_options, $key) {
     $backend_conf_path  = $config_options[$key]
   }
