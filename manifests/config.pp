@@ -18,6 +18,7 @@ define powerdns::config (
     content => template("${module_name}/config/KEY-VALUE-conf-file.erb"),
     mode    => '0600',
     backup  => $config_backup,
+    nofity  => Service["$service_name"]
   }
 
   # Create the log file
