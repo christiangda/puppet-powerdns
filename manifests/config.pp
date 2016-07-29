@@ -17,6 +17,7 @@ define powerdns::config (
     path    => $file,
     content => template("${module_name}/config/KEY-VALUE-conf-file.erb"),
     mode    => '0600',
+    notify  => Service[$service_name],
     backup  => $config_backup,
   }
 
