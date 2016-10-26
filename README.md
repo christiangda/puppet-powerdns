@@ -1,6 +1,9 @@
 # [Puppet](https://puppetlabs.com/) powerdns module
 
 [![Build Status](https://travis-ci.org/christiangda/puppet-powerdns.svg?branch=master)](https://travis-ci.org/christiangda/puppet-powerdns)
+[![Code Climate](https://codeclimate.com/github/christiangda/puppet-powerdns/badges/gpa.svg)](https://codeclimate.com/github/christiangda/puppet-powerdns)
+[![Test Coverage](https://codeclimate.com/github/christiangda/puppet-powerdns/badges/coverage.svg)](https://codeclimate.com/github/christiangda/puppet-powerdns/coverage)
+[![Issue Count](https://codeclimate.com/github/christiangda/puppet-powerdns/badges/issue_count.svg)](https://codeclimate.com/github/christiangda/puppet-powerdns)
 [![Puppet Forge](http://img.shields.io/puppetforge/v/christiangda/powerdns.svg)](https://forge.puppetlabs.com/christiangda/powerdns)
 [![Puppet Forge Downloads](http://img.shields.io/puppetforge/dt/christiangda/powerdns.svg)](https://forge.puppetlabs.com/christiangda/powerdns/scores)
 
@@ -16,6 +19,8 @@
 5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
+7. [Authors - Who is contributing to do it](#authors)
+8. [License](#license)
 
 ## Overview
 
@@ -93,11 +98,15 @@ to install and configure [PowerDNS](https://www.powerdns.com/) with Default modu
 
 additional you could use
 ```puppet
-include ::powerdns::recursor
+node 'dns.mynetwork.local' {
+  include ::powerdns::recursor
+}
 ```
 or
 ```puppet
-class { '::powerdns::recursor': }
+node 'dns.mynetwork.local' {
+  class { '::powerdns::recursor': }
+}
 ```
 if you want to configure [PowerDNS](https://www.powerdns.com/) Recursor service.
 
@@ -105,51 +114,57 @@ if you want to configure [PowerDNS](https://www.powerdns.com/) Recursor service.
 
 For more specific configuration of powerdns class you can use:
 ```puppet
-class { '::powerdns':
-  package_ensure     => 'present',
-  service_enable     => true,
-  service_ensure     => 'running',
-  service_status     => true,
-  service_status_cmd => '/usr/bin/pdns_control ping 2>/dev/null 1>/dev/null',
-  # All the values in config hash could be extracted from: https://doc.powerdns.com/md/authoritative/settings/
-  config => {
-    allow-from      => '192.168.1.0/24',
-    local-port      => 53,
-    query-cache-ttl => 20,
+node 'dns.mynetwork.local' {
+  class { '::powerdns':
+    package_ensure     => 'present',
+    service_enable     => true,
+    service_ensure     => 'running',
+    service_status     => true,
+    service_status_cmd => '/usr/bin/pdns_control ping 2>/dev/null 1>/dev/null',
+    # All the values in config hash could be extracted from: https://doc.powerdns.com/md/authoritative/settings/
+    config => {
+      allow-from      => '192.168.1.0/24',
+      local-port      => 53,
+      query-cache-ttl => 20,
+    }
   }
 }
 ```
 To configure PostgreSQL as backend, you can do:
 ```puppet
-class { '::powerdns::backend':
-  backend_name => 'pgsql',
-  ensure       => 'present',
-  # All the values in config hash could be extracted from: https://doc.powerdns.com/md/authoritative/
-  config       => {
-    launch          => 'gpgsql',
-    gpgsql-host     => 'localhost',
-    gpgsql-port     => '3306',
-    gpgsql-dbname   => 'mypdnsdb',
-    gpgsql-user     => 'mypdnsuser',
-    gpgsql-password => 'mypassword',
+node 'dns.mynetwork.local' {
+  class { '::powerdns::backend':
+    backend_name => 'pgsql',
+    ensure       => 'present',
+    # All the values in config hash could be extracted from: https://doc.powerdns.com/md/authoritative/
+    config       => {
+      launch          => 'gpgsql',
+      gpgsql-host     => 'localhost',
+      gpgsql-port     => '3306',
+      gpgsql-dbname   => 'mypdnsdb',
+      gpgsql-user     => 'mypdnsuser',
+      gpgsql-password => 'mypassword',
+    }
   }
 }
 ```
 
 For more specific configuration of PowerDNS Recursor class you can use:
 ```puppet
-class { '::powerdns::recursor':
-  package_ensure     => 'present',
-  service_enable     => true,
-  service_ensure     => 'running',
-  service_status     => true,
-  service_status_cmd => '/usr/bin/rec_control ping 2>/dev/null 1>/dev/null'
-  # All the values in config hash could be extracted from: https://doc.powerdns.com/md/recursor/settings/
-  config => {
-    allow-from                 => '192.168.1.0/24',
-    aaaa-additional-processing => true,
-    local-port                 => 5353,
-    etc-hosts-file             => '/etc/hosts',
+node 'dns.mynetwork.local' {
+  class { '::powerdns::recursor':
+    package_ensure     => 'present',
+    service_enable     => true,
+    service_ensure     => 'running',
+    service_status     => true,
+    service_status_cmd => '/usr/bin/rec_control ping 2>/dev/null 1>/dev/null'
+    # All the values in config hash could be extracted from: https://doc.powerdns.com/md/recursor/settings/
+    config => {
+      allow-from                 => '192.168.1.0/24',
+      aaaa-additional-processing => true,
+      local-port                 => 5353,
+      etc-hosts-file             => '/etc/hosts',
+    }
   }
 }
 ```
@@ -182,14 +197,13 @@ This module could not manage DNS records, this only can be used as configuration
 Of course, bug reports and suggestions for improvements are always
 welcome. GitHub pull requests are even better! :-)
 
-You can also support my work on apache_storm via
+You can also support my work on powerdns via
 [Gratipay](https://gratipay.com/~645e3ac3c159/).
 
 [![Support via Gratipay](https://cdn.rawgit.com/gratipay/gratipay-badge/2.1.3/dist/gratipay.png)](https://gratipay.com/~645e3ac3c159/)
 
 ## Authors
 
-Note: This module is a merge of the work from the following authors:
 * [christiangda](https://github.com/christiangda)
 
 ## License
