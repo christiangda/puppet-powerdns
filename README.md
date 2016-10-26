@@ -86,13 +86,17 @@ For both [PowerDNS](https://www.powerdns.com/) operation modes, you could instal
 
 You can use
 ```puppet
-include ::powerdns
-include ::powerdns::backend
+node 'dns.mynetwork.local' {
+  include ::powerdns
+  include ::powerdns::backend
+}
 ```
 or
 ```puppet
-class { '::powerdns': }
-class { '::powerdns::backend': }
+node 'dns.mynetwork.local' {
+  class { '::powerdns': }
+  class { '::powerdns::backend': }
+}
 ```
 to install and configure [PowerDNS](https://www.powerdns.com/) with Default module parameters.
 
@@ -121,7 +125,8 @@ node 'dns.mynetwork.local' {
     service_ensure     => 'running',
     service_status     => true,
     service_status_cmd => '/usr/bin/pdns_control ping 2>/dev/null 1>/dev/null',
-    # All the values in config hash could be extracted from: https://doc.powerdns.com/md/authoritative/settings/
+    # All the values in config hash could be extracted
+    # from: https://doc.powerdns.com/md/authoritative/settings/
     config => {
       allow-from      => '192.168.1.0/24',
       local-port      => 53,
@@ -136,7 +141,8 @@ node 'dns.mynetwork.local' {
   class { '::powerdns::backend':
     backend_name => 'pgsql',
     ensure       => 'present',
-    # All the values in config hash could be extracted from: https://doc.powerdns.com/md/authoritative/
+    # All the values in config hash could be extracted
+    # from: https://doc.powerdns.com/md/authoritative/
     config       => {
       launch          => 'gpgsql',
       gpgsql-host     => 'localhost',
@@ -187,10 +193,13 @@ This module could not manage DNS records, this only can be used as configuration
 
 ## Development / contributing
 
-1. [Fork it](https://github.com/christiangda/puppet-powerdns#fork-destination-box)
-2. [Clone it](https://github.com/christiangda/puppet-powerdns.git) (`git clone https://github.com/christiangda/puppet-powerdns.git; cd puppet-powerdns`)
-3. Create your feature branch (`git checkout -b my-new-feature`)
-4. Commit your changes (`git commit -am 'Added some feature'`)
+1. [Fork it](https://github.com/christiangda/puppet-powerdns#fork-destination-box) / [Clone it](https://github.com/christiangda/puppet-powerdns.git) (`git clone https://github.com/christiangda/puppet-powerdns.git; cd puppet-powerdns`)
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Install bundler app first (`gem install bundler`)
+4. Install rubygems dependecies in .vendor folder (`bundle install --path .vendor`)
+5. Make your changes / improvements / fixes / etc, and of course **your Unit Test** for new code
+6. Run the tests (`bundle exec rubocop && bundle exec rake test`)
+6. Commit your changes (`git add . && git commit -m 'Added some feature'`)
 5. Push to the branch (`git push origin my-new-feature`)
 6. [Create new Pull Request](https://github.com/christiangda/puppet-powerdns/pull/new/master)
 
@@ -204,7 +213,7 @@ You can also support my work on powerdns via
 
 ## Authors
 
-* [christiangda](https://github.com/christiangda)
+* [Christian González](https://github.com/christiangda)
 
 ## License
 
