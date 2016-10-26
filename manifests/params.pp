@@ -1,7 +1,8 @@
 #
 #
 class powerdns::params {
-
+  $user           = 'pdns'
+  $group          = 'pdns'
   $package_ensure = 'present'
   # packages
   case $::operatingsystem {
@@ -9,6 +10,7 @@ class powerdns::params {
       # main application
       $package_name     = ['pdns', 'pdns-tools']
       $package_backends = [
+        'pdns-backend-bind',
         'pdns-backend-geo',
         'pdns-backend-lua',
         'pdns-backend-ldap',
@@ -36,6 +38,7 @@ class powerdns::params {
       # main application
       $package_name          = ['pdns-server']
       $package_backends = [
+        'pdns-backend-bind',
         'pdns-backend-geo',
         'pdns-backend-ldap',
         'pdns-backend-lua',
@@ -74,8 +77,8 @@ class powerdns::params {
     'config-dir'                => $config_file_path,
     'local-address'             => '0.0.0.0',
     'local-port'                => '53',
-    'setgid'                    => 'pdns',
-    'setuid'                    => 'pdns',
+    'setgid'                    => $group,
+    'setuid'                    => $user,
     'include-dir'               => "${config_file_path}/pdns.d",
   }
 
@@ -95,7 +98,7 @@ class powerdns::params {
   $backend_config_file_backup = true
 
   # Recursor independent OS variables
-  $recursor_package_name       = ['pdns-recursor']
+  $recursor_package_name       = 'pdns-recursor'
   $recursor_service_name       = 'pdns-recursor'
   $recursor_service_restart    = true
   $recursor_service_status     = true
@@ -103,7 +106,7 @@ class powerdns::params {
   $recursor_default_config     = {
     'allow-from'               => '127.0.0.1',
     'config-dir'               => $config_file_path,
-    'setgid'                   => 'pdns',
-    'setuid'                   => 'pdns',
+    'setgid'                   => $group,
+    'setuid'                   => $user,
   }
 }

@@ -1,7 +1,8 @@
-# [Puppet](https://puppetlabs.com/) ::powerdns module
+# [Puppet](https://puppetlabs.com/) powerdns module
 
-[![Puppet Forge](http://img.shields.io/puppetforge/v/christiangda/powerdns.svg)](https://forge.puppetlabs.com/christiangda/powerdns)
 [![Build Status](https://travis-ci.org/christiangda/puppet-powerdns.svg?branch=master)](https://travis-ci.org/christiangda/puppet-powerdns)
+[![Puppet Forge](http://img.shields.io/puppetforge/v/christiangda/powerdns.svg)](https://forge.puppetlabs.com/christiangda/powerdns)
+[![Puppet Forge Downloads](http://img.shields.io/puppetforge/dt/christiangda/powerdns.svg)](https://forge.puppetlabs.com/christiangda/powerdns/scores)
 
 #### Table of Contents
 
@@ -18,9 +19,9 @@
 
 ## Overview
 
-This is a [Puppet](https://puppetlabs.com/) module to manages [PowerDNS](https://www.powerdns.com/) tool.  With this module you can installs, configures, and manages the [PowerDNS](https://www.powerdns.com/) services.
+This is a [Puppet](https://puppetlabs.com/) module to manage [PowerDNS](https://www.powerdns.com/) tool.  With this module you can installs, configures, and manages the [PowerDNS](https://www.powerdns.com/) services.
 
-This module were designed to work with [Puppet](https://puppetlabs.com/) version >= 3.7.0
+This module were designed to work with [Puppet](https://puppetlabs.com/) version >= 3.8.0
 
 ## Module Description
 
@@ -165,7 +166,7 @@ class { '::powerdns::recursor':
 
 This module could not manage DNS records, this only can be used as configuration of [PowerDNS](https://www.powerdns.com/).
 
-## Development
+## Development / contributing
 
 1. [Fork it](https://github.com/christiangda/puppet-powerdns#fork-destination-box)
 2. [Clone it](https://github.com/christiangda/puppet-powerdns.git) (`git clone https://github.com/christiangda/puppet-powerdns.git; cd puppet-powerdns`)
@@ -174,6 +175,13 @@ This module could not manage DNS records, this only can be used as configuration
 5. Push to the branch (`git push origin my-new-feature`)
 6. [Create new Pull Request](https://github.com/christiangda/puppet-powerdns/pull/new/master)
 
+Of course, bug reports and suggestions for improvements are always
+welcome. GitHub pull requests are even better! :-)
+
+You can also support my work on apache_storm via
+[Gratipay](https://gratipay.com/~645e3ac3c159/).
+
+[![Support via Gratipay](https://cdn.rawgit.com/gratipay/gratipay-badge/2.1.3/dist/gratipay.png)](https://gratipay.com/~645e3ac3c159/)
 
 ## Authors
 

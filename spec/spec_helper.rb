@@ -1,16 +1,12 @@
+require 'rubygems'
 require 'puppetlabs_spec_helper/module_spec_helper'
-
-fixture_path = File.expand_path(File.join(__FILE__, '..', 'fixtures'))
+require 'codeclimate-test-reporter'
 
 RSpec.configure do |c|
-
-  c.module_path = File.join(fixture_path, 'modules')
-  c.manifest_dir = File.join(fixture_path, 'manifests')
-
-  c.default_facts = {
-    :kernel          => 'Linux',
-    :puppetversion   => ENV['PUPPET_VERSION'] || Puppet.version
-  }
+  Puppet.settings[:strict_variables] = true if ENV['STRICT_VARIABLES'] == 'true'
+  Puppet.settings[:ordering] = 'random' if ENV['ORDERING_RANDOM'] == 'true'
+  c.parser = 'future' if ENV['FUTURE_PARSER'] == 'true'
 end
 
 at_exit { RSpec::Puppet::Coverage.report! }
+CodeClimate::TestReporter.start

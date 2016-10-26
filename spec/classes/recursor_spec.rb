@@ -4,8 +4,8 @@ describe 'powerdns::recursor' do
     context "with default parameters on #{osfamily}" do
       let (:facts) do
         {
-          :operatingsystem => osfamily,
-          :osfamily        => osfamily,
+          operatingsystem: osfamily,
+          osfamily:        osfamily
         }
       end
 

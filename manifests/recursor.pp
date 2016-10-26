@@ -29,24 +29,22 @@ class powerdns::recursor (
   validate_bool($config_file_backup)
   validate_hash($config)
 
-  $package_name = $::powerdns::params::recursor_package_name
-  validate_array($package_name)
+  validate_array($powerdns::recursor_package_name)
 
-  $service_name = $::powerdns::params::recursor_service_name
-  validate_string($service_name)
+  validate_string($powerdns::recursor_service_name)
   validate_bool($service_restart)
   validate_bool($service_status)
 
   # Variable used to merge configd
-  $config_options = merge($::powerdns::params::recursor_default_config, $config)
+  $config_options = merge($powerdns::recursor_default_config, $config)
 
-  ::powerdns::install { $package_name: } ->
-  ::powerdns::config { $config_file:
-    values       => $config_options,
+  powerdns::install { $powerdns::recursor_package_name: } ->
+  powerdns::config { $config_file:
+    config       => $config_options,
     file_path    => $config_file_path,
-    service_name => $service_name,
+    service_name => $powerdns::recursor_service_name,
   } ->
-  ::powerdns::service { $service_name:
+  powerdns::service { $powerdns::recursor_service_name:
     service_restart    => $service_restart,
     service_status     => $service_status,
     service_status_cmd => $service_status_cmd,
