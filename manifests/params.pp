@@ -6,7 +6,7 @@ class powerdns::params {
   $package_ensure = 'present'
   # packages
   case $::operatingsystem {
-    'RedHat', 'Fedora', 'CentOS': {
+    'RedHat', 'CentOS', 'Fedora', 'Scientific', 'Amazon', 'OracleLinux': {
       # main application
       $package_name     = ['pdns', 'pdns-tools']
       $package_backends = [

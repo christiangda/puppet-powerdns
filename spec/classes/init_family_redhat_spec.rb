@@ -2,20 +2,20 @@ require 'spec_helper'
 
 describe 'powerdns', type: 'class' do
 
-  ['Debian', 'Ubuntu'].each do |distro|
+  ['RedHat', 'CentOS', 'Fedora', 'Scientific', 'Amazon', 'OracleLinux'].each do |distro|
 
     context "on #{distro} OS" do
 
       let(:facts) { {
         operatingsystem: distro,
         kernel:          'Linux',
-        osfamily:        'Debian',
-        lsbdistid:       'Debian'
+        osfamily:        'RedHat'
       } }
 
-      let(:config_file_path) { '/etc/powerdns' }
+
+      let(:config_file_path) { '/etc/pdns' }
       let(:service_name)     { 'pdns' }
-      let(:package_name)     { 'pdns-server' }
+      let(:package_name)     { ['pdns', 'pdns-tools'] }
       let(:config_file)      { 'pdns.conf' }
 
       context 'Init class tests with the default parameters' do
@@ -27,8 +27,12 @@ describe 'powerdns', type: 'class' do
         it { is_expected.to contain_powerdns__config("#{config_file}") }
         it { is_expected.to create_file("#{config_file_path}/#{config_file}") }
 
-        it { is_expected.to contain_powerdns__install("#{package_name}") }
-        it { is_expected.to contain_package("#{package_name}") }
+        it do
+          package_name.each do |package|
+            is_expected.to contain_powerdns__install(package)
+            is_expected.to contain_package(package)
+          end
+        end
 
         it { is_expected.to contain_powerdns__service("#{service_name}") }
         it { is_expected.to contain_service("#{service_name}") }

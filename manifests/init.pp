@@ -25,9 +25,9 @@ class powerdns (
   ) inherits powerdns::params {
 
   # Fail fast if we're not using a new Puppet version.
-  if versioncmp($::puppetversion, '3.7.0') < 0 {
-    fail('This module requires the use of Puppet v3.7.0 or newer.')
-  }
+  # if versioncmp($::puppetversion, '3.7.0') < 0 {
+  #   fail('This module requires the use of Puppet v3.7.0 or newer.')
+  # }
 
   if ! ($package_ensure in [ 'present', 'installed', 'absent', 'purged', 'held', 'latest' ]) {
     fail("\"${::status}\" is not a valid status parameter value")

@@ -156,11 +156,15 @@ class { '::powerdns::recursor':
 
 ## Reference
 
-[PowerDNS](https://www.powerdns.com/)
-* https://doc.powerdns.com
-* https://doc.powerdns.com/md/authoritative/settings/
-* https://doc.powerdns.com/md/authoritative/
-* https://doc.powerdns.com/md/recursor/settings/
+* [Puppet](https://puppetlabs.com/)
+* [PowerDNS](https://www.powerdns.com/)
+  * [Authoritative Settings](https://doc.powerdns.com/md/authoritative/settings/)
+  * [Recursor Settings](https://doc.powerdns.com/md/recursor/settings/)
+* [Rubocop](https://github.com/bbatsov/rubocop)
+* [rspec-puppet](http://rspec-puppet.com/)
+* [puppet-blacksmith](https://github.com/voxpupuli/puppet-blacksmith)
+* [RSpec For Ops Part 2: Diving in with rspec-puppet](http://blog.danzil.io/page2/)
+
 
 ## Limitations
 
