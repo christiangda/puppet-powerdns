@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe 'powerdns::backend' do
   shared_examples 'a Linux distribution' do |osfamily|
 
