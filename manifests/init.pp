@@ -59,6 +59,8 @@ class powerdns (
     config       => $config_options,
     file_path    => $config_file_path,
     service_name => $powerdns::service_name,
+    user         => $user,
+    group        => $group,
   } ->
   powerdns::service { $powerdns::service_name:
     service_restart    => $service_restart,

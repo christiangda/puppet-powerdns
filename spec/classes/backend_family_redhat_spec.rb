@@ -6,11 +6,13 @@ describe 'powerdns::backend', type: 'class' do
 
     context "on #{distro} OS" do
 
-      let(:facts) { {
-        operatingsystem: distro,
-        kernel:          'Linux',
-        osfamily:        'RedHat'
-      } }
+      let :facts do
+        {
+          'operatingsystem' => distro,
+          'kernel'          => 'Linux',
+          'osfamily'        => 'RedHat'
+        }
+      end
 
 
       let(:user)  { 'pdns' }

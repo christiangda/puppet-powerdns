@@ -6,12 +6,14 @@ describe 'powerdns::recursor', type: 'class' do
 
     context "on #{distro} OS" do
 
-      let(:facts) { {
-        operatingsystem: distro,
-        kernel:          'Linux',
-        osfamily:        'Debian',
-        lsbdistid:       'Debian'
-      } }
+      let :facts do
+        {
+          'operatingsystem' => distro,
+          'kernel'          => 'Linux',
+          'osfamily'        => 'Debian',
+          'lsbdistid'       => 'Debian'
+        }
+      end
 
       let(:recursor_package_name) { 'pdns-recursor' }
       let(:config_file_path)      { '/etc/powerdns' }
