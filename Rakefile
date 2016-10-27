@@ -6,7 +6,7 @@ require 'puppet_blacksmith/rake_tasks'
 require 'puppet-syntax/tasks/puppet-syntax'
 require 'metadata-json-lint/rake_task'
 require 'simplecov'
-# require 'rubocop/rake_task'
+require 'rubocop/rake_task'
 
 exclude_paths = [
   'pkg/**/*',
@@ -34,8 +34,6 @@ RSpec::Core::RakeTask.new(:spec_verbose) do |t|
   t.pattern = 'spec/{classes,defines,lib,reports}/**/*_spec.rb'
   t.rspec_opts = [
     '--format documentation',
-    '--require "ci/reporter/rspec"',
-    '--format CI::Reporter::RSpecFormatter',
     '--color'
   ]
 end
@@ -47,9 +45,14 @@ SimpleCov.start do
   add_filter '/templates/'
 end
 
-# RuboCop::RakeTask.new
+RSpec::Core::RakeTask.new(:acceptance) do |t|
+  t.pattern = 'spec/acceptance'
+end
+
+RuboCop::RakeTask.new
 
 task test: [
+  :rubocop,
   :metadata_lint,
   :syntax,
   :lint,

@@ -11,7 +11,7 @@ class powerdns::recursor (
   $config_file        = $::powerdns::params::recursor_config_file,
   $config_file_backup = $::powerdns::params::config_file_backup,
   $config             = {},
-  ) inherits powerdns::params {
+  ) inherits powerdns {
 
   if ! ($package_ensure in [ 'present', 'installed', 'absent', 'purged', 'held', 'latest' ]) {
     fail("\"${::status}\" is not a valid status parameter value")
@@ -28,9 +28,7 @@ class powerdns::recursor (
   validate_string($config_file)
   validate_bool($config_file_backup)
   validate_hash($config)
-
-  validate_array($powerdns::recursor_package_name)
-
+  validate_string($powerdns::recursor_package_name)
   validate_string($powerdns::recursor_service_name)
   validate_bool($service_restart)
   validate_bool($service_status)

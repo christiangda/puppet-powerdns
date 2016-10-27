@@ -18,7 +18,7 @@ describe 'powerdns', type: 'class' do
       let(:package_name)     { ['pdns', 'pdns-tools'] }
       let(:config_file)      { 'pdns.conf' }
 
-      context 'Init class tests with the default parameters' do
+      context 'tests with the default parameters' do
 
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to create_class('powerdns') }

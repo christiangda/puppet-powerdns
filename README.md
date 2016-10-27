@@ -125,12 +125,10 @@ node 'dns.mynetwork.local' {
     service_ensure     => 'running',
     service_status     => true,
     service_status_cmd => '/usr/bin/pdns_control ping 2>/dev/null 1>/dev/null',
-    # All the values in config hash could be extracted
-    # from: https://doc.powerdns.com/md/authoritative/settings/
     config => {
-      allow-from      => '192.168.1.0/24',
-      local-port      => 53,
-      query-cache-ttl => 20,
+      'allow-from'      => '192.168.1.0/24',
+      'local-port'      => 53,
+      'query-cache-ttl' => 20,
     }
   }
 }
@@ -141,15 +139,13 @@ node 'dns.mynetwork.local' {
   class { '::powerdns::backend':
     backend_name => 'pgsql',
     ensure       => 'present',
-    # All the values in config hash could be extracted
-    # from: https://doc.powerdns.com/md/authoritative/
     config       => {
-      launch          => 'gpgsql',
-      gpgsql-host     => 'localhost',
-      gpgsql-port     => '3306',
-      gpgsql-dbname   => 'mypdnsdb',
-      gpgsql-user     => 'mypdnsuser',
-      gpgsql-password => 'mypassword',
+      'launch'          => 'gpgsql',
+      'gpgsql-host'     => 'localhost',
+      'gpgsql-port'     => '3306',
+      'gpgsql-dbname'   => 'mypdnsdb',
+      'gpgsql-user'     => 'mypdnsuser',
+      'gpgsql-password' => 'mypassword',
     }
   }
 }
@@ -164,12 +160,11 @@ node 'dns.mynetwork.local' {
     service_ensure     => 'running',
     service_status     => true,
     service_status_cmd => '/usr/bin/rec_control ping 2>/dev/null 1>/dev/null'
-    # All the values in config hash could be extracted from: https://doc.powerdns.com/md/recursor/settings/
     config => {
-      allow-from                 => '192.168.1.0/24',
-      aaaa-additional-processing => true,
-      local-port                 => 5353,
-      etc-hosts-file             => '/etc/hosts',
+      'allow-from '                => '192.168.1.0/24',
+      'aaaa-additional-processing' => true,
+      'local-port'                 => 5353,
+      'etc-hosts-file'             => '/etc/hosts',
     }
   }
 }

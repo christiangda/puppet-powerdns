@@ -23,7 +23,7 @@ group :test do
   gem 'rspec-puppet-facts'
   gem 'rspec-puppet-utils'
   gem 'metadata-json-lint'
-  gem 'puppet-blacksmith'
+  gem 'rubocop'
   gem 'google-api-client'        , '<= 0.9.4', require: false if RUBY_VERSION < '2.0.0'
   gem 'json_pure'                , '<= 2.0.1', require: false if RUBY_VERSION < '2.0.0'
   gem 'codeclimate-test-reporter', require: false
@@ -31,8 +31,10 @@ group :test do
 end
 
 group :development do
-  gem 'rubocop'
-  gem 'beaker'
+  gem 'travis'
+  gem 'puppet-blacksmith'
+end
+
+group :acceptance do
   gem 'beaker-rspec'
-  gem 'beaker-puppet_install_helper'
 end

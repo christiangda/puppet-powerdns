@@ -24,13 +24,15 @@ describe 'powerdns::backend', type: 'class' do
 
       let(:config_file) { "#{backend_conf_path}/#{default_backend_config_file_prefix}.g#{backend_name}.conf" }
 
-      let(:package_backends_bind_files) { [
-        '/etc/pdns/bindbackend.conf',
-        '/etc/pdns/pdns.d/pdns.simplebind.conf',
-        '/etc/pdns/pdns.d/pdns.local.conf'
-      ] }
+      let(:package_backends_bind_files) {
+        [
+          '/etc/pdns/bindbackend.conf',
+          '/etc/pdns/pdns.d/pdns.simplebind.conf',
+          '/etc/pdns/pdns.d/pdns.local.conf'
+        ]
+      }
 
-      context 'Backend class tests with the default parameters' do
+      context 'tests with the default parameters' do
 
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to create_class('powerdns::backend') }
