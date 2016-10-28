@@ -9,6 +9,12 @@ require 'rubocop/rake_task'
 
 begin
   require 'puppet_blacksmith/rake_tasks'
+
+  Blacksmith::RakeTask.new do |t|
+    t.tag_pattern = 'v%s' # Use a custom pattern with git tag. %s is replaced with the version number.
+    t.build = false # do not build the module nor push it to the Forge, just do the tagging [:clean, :tag, :bump_commit]
+  end
+  
 rescue LoadError
 end
 
@@ -27,11 +33,6 @@ PuppetLint::RakeTask.new :lint do |config|
   config.with_context = true
   config.ignore_paths = exclude_paths
   config.log_format = log_format
-end
-
-Blacksmith::RakeTask.new do |t|
-  t.tag_pattern = 'v%s' # Use a custom pattern with git tag. %s is replaced with the version number.
-  t.build = false # do not build the module nor push it to the Forge, just do the tagging [:clean, :tag, :bump_commit]
 end
 
 RSpec::Core::RakeTask.new(:spec_verbose) do |t|
