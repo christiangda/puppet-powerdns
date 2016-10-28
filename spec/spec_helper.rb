@@ -10,6 +10,10 @@ RSpec.configure do |c|
   c.formatter = 'progress'
 end
 
+SimpleCov.formatters = [
+  SimpleCov::Formatter::HTMLFormatter,
+  CodeClimate::TestReporter::Formatter
+]
 
 SimpleCov.start do
   add_filter '/.vendor/'
