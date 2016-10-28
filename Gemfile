@@ -24,7 +24,6 @@ group :test do
   gem 'rspec-puppet-utils'
   gem 'metadata-json-lint'
   gem 'rubocop'
-  gem 'net-ssh'                  , '<= 2.10.0', require: false if RUBY_VERSION < '2.0.0'
   gem 'google-api-client'        , '<= 0.9.4',  require: false if RUBY_VERSION < '2.0.0'
   gem 'json_pure'                , '<= 2.0.1',  require: false if RUBY_VERSION < '2.0.0'
   gem 'codeclimate-test-reporter', require: false
