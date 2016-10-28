@@ -24,4 +24,4 @@ branches:
     - master
 addons:
   code_climate:
-    repo_token: 
+    repo_token: 47731ce5e6b9ba7f62a4c4a710eafe0df8fbf66bc11e369ab746df096a2b0c9f

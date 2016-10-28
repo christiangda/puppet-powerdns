@@ -4,7 +4,6 @@ require 'puppetlabs_spec_helper/rake_tasks'
 require 'puppet-lint/tasks/puppet-lint'
 require 'puppet-syntax/tasks/puppet-syntax'
 require 'metadata-json-lint/rake_task'
-require 'simplecov'
 require 'rubocop/rake_task'
 
 begin
@@ -42,13 +41,6 @@ RSpec::Core::RakeTask.new(:spec_verbose) do |t|
     '--format documentation',
     '--color'
   ]
-end
-
-SimpleCov.start do
-  add_filter '/.vendor/'
-  add_filter '/samples/'
-  add_filter '/.bundle/'
-  add_filter '/templates/'
 end
 
 RSpec::Core::RakeTask.new(:acceptance) do |t|
