@@ -2,11 +2,15 @@ require 'rubygems'
 require 'rspec/core/rake_task'
 require 'puppetlabs_spec_helper/rake_tasks'
 require 'puppet-lint/tasks/puppet-lint'
-require 'puppet_blacksmith/rake_tasks'
 require 'puppet-syntax/tasks/puppet-syntax'
 require 'metadata-json-lint/rake_task'
 require 'simplecov'
 require 'rubocop/rake_task'
+
+begin
+  require 'puppet_blacksmith/rake_tasks'
+rescue LoadError
+end
 
 exclude_paths = [
   'pkg/**/*',
