@@ -37,5 +37,6 @@ group :development do
 end
 
 group :acceptance do
-  gem 'beaker-rspec'
+  gem 'beaker'      , '<= 3.0.0', require: false if RUBY_VERSION < '2.0.0'
+  gem 'beaker-rspec', '<= 5.6.0', require: false if RUBY_VERSION < '2.0.0'
 end
