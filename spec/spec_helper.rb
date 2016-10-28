@@ -21,6 +21,7 @@ SimpleCov.start do
   add_filter '/samples/'
   add_filter '/.bundle/'
   add_filter '/templates/'
+  add_filter '/spec/fixtures/'
 end
 
 at_exit { RSpec::Puppet::Coverage.report! }
