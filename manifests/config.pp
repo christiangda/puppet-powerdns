@@ -20,6 +20,7 @@ define powerdns::config (
     mode    => '0644',
     owner   => $user,
     group   => $group,
+    notify  => Service[$service_name],
     backup  => $config_backup,
   }
 }
