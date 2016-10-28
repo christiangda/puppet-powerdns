@@ -10,10 +10,10 @@ RSpec.configure do |c|
   c.formatter = 'progress'
 end
 
-SimpleCov.formatters = [
-  SimpleCov::Formatter::HTMLFormatter,
-  CodeClimate::TestReporter::Formatter
-]
+# SimpleCov.formatters = [
+#   SimpleCov::Formatter::HTMLFormatter,
+#   CodeClimate::TestReporter::Formatter
+# ]
 
 SimpleCov.start do
   add_filter '/.vendor/'
@@ -25,4 +25,5 @@ SimpleCov.start do
 end
 
 at_exit { RSpec::Puppet::Coverage.report! }
+
 CodeClimate::TestReporter.start
