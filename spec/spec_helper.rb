@@ -15,9 +15,6 @@ SimpleCov.formatters = [
   CodeClimate::TestReporter::Formatter
 ]
 
-coverage_dir = File.join('..', 'coverage')
-SimpleCov.coverage_dir(coverage_dir)
-
 SimpleCov.start do
   add_filter '/.vendor/'
   add_filter '/vendor/'

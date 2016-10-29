@@ -203,7 +203,7 @@ welcome. GitHub pull requests are even better! :-)
 
 You can also support my work on powerdns via
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](paypal.me/christiangda)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/christiangda)
 
 [![Support via Gratipay](https://cdn.rawgit.com/gratipay/gratipay-badge/2.1.3/dist/gratipay.png)](https://gratipay.com/~645e3ac3c159/)
 
