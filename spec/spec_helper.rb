@@ -26,5 +26,5 @@ end
 
 at_exit { RSpec::Puppet::Coverage.report! }
 
-CodeClimate::TestReporter.start
-# CodeClimate::TestReporter.configuration.profile
+# CodeClimate::TestReporter.start
+CodeClimate::TestReporter.configuration.profile
