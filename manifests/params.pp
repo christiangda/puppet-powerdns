@@ -30,9 +30,12 @@ class powerdns::params {
         '/etc/pdns/pdns.d/pdns.simplebind.conf',
         '/etc/pdns/pdns.d/pdns.local.conf',
       ]
-      $config_file_path     = '/etc/pdns'
-      $config_file          = 'pdns.conf'
-      $recursor_config_file = 'recursor.conf'
+      $config_file_path          = '/etc/pdns'
+      $config_file               = 'pdns.conf'
+      $recursor_config_file      = 'recursor.conf'
+      $recursor_config_file_path = '/etc/pdns-recursor'
+      $recursor_user             ='pdns-recursor'
+      $recursor_group            ='pdns-recursor'
     }
     'Debian', 'Ubuntu': {
       # main application
@@ -52,10 +55,12 @@ class powerdns::params {
         '/etc/powerdns/pdns.d/pdns.simplebind.conf',
         '/etc/powerdns/pdns.d/pdns.local.conf',
       ]
-      $config_file_path     = '/etc/powerdns'
-      $config_file          = 'pdns.conf'
-      $recursor_config_file = 'recursor.conf'
-
+      $config_file_path          = '/etc/powerdns'
+      $config_file               = 'pdns.conf'
+      $recursor_config_file      = 'recursor.conf'
+      $recursor_config_file_path = '/etc/powerdns'
+      $recursor_user             ='pdns'
+      $recursor_group            ='pdns'
     }
     default: {
       fail("\"${module_name}\" provides no package default value
@@ -70,7 +75,7 @@ class powerdns::params {
   $service_restart    = true
   $service_status     = true
   $service_status_cmd = '/usr/bin/pdns_control ping 2>/dev/null 1>/dev/null'
-
+  $config_include_dir = "${config_file_path}/pdns.d"
   $config_file_backup = true
   $default_config     = {
     'allow-recursion'           => '127.0.0.1',
@@ -79,7 +84,7 @@ class powerdns::params {
     'local-port'                => '53',
     'setgid'                    => $group,
     'setuid'                    => $user,
-    'include-dir'               => "${config_file_path}/pdns.d",
+    'include-dir'               => $config_include_dir,
   }
 
   # Default backend configuration
@@ -105,8 +110,8 @@ class powerdns::params {
   $recursor_service_status_cmd = '/usr/bin/rec_control ping 2>/dev/null 1>/dev/null'
   $recursor_default_config     = {
     'allow-from'               => '127.0.0.1',
-    'config-dir'               => $config_file_path,
-    'setgid'                   => $group,
-    'setuid'                   => $user,
+    'config-dir'               => $recursor_config_file_path,
+    'setgid'                   => $recursor_user,
+    'setuid'                   => $recursor_group,
   }
 }

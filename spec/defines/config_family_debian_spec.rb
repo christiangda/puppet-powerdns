@@ -15,8 +15,8 @@ describe 'powerdns::config', type: 'define' do
         }
       end
 
-      let(:config_file) { 'pdns.conf' }
-      let(:title)       { "#{config_file}" }
+      let(:config_file)      { 'pdns.conf' }
+      let(:title)            { "#{config_file}" }
 
       context 'tests with the default parameters' do
 
@@ -24,7 +24,6 @@ describe 'powerdns::config', type: 'define' do
 
         it do
           is_expected.to contain_file("/#{title}").with(
-            'ensure' => 'file',
             'mode'   => '0644',
             'backup' => 'true'
           )

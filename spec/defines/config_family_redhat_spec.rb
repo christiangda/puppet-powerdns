@@ -14,9 +14,10 @@ describe 'powerdns::config', type: 'define' do
         }
       end
 
+      # File[/etc/pdns/pdns.d]
 
-      let(:config_file) { 'pdns.conf' }
-      let(:title)       { "#{config_file}" }
+      let(:config_file)      { 'pdns.conf' }
+      let(:title)            { "#{config_file}" }
 
       context 'tests with the default parameters' do
 
@@ -24,11 +25,18 @@ describe 'powerdns::config', type: 'define' do
 
         it do
           is_expected.to contain_file("/#{title}").with(
-            'ensure' => 'file',
             'mode'   => '0644',
             'backup' => 'true'
           )
         end
+
+        # it do
+        #   is_expected.to contain_file("#{include_dir}").with(
+        #     'ensure' => 'directory',
+        #     'mode'   => '0755',
+        #     'backup' => 'true'
+        #   )
+        # end
 
       end # en contex init class
 

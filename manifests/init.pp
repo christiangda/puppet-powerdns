@@ -44,25 +44,26 @@ class powerdns (
   validate_bool($config_file_backup)
   validate_hash($config)
 
-  validate_array($powerdns::package_name)
+  validate_array($powerdns::params::package_name)
 
-  validate_string($powerdns::service_name)
+  validate_string($powerdns::params::service_name)
   validate_bool($service_restart)
   validate_bool($service_status)
 
   # Variable used to merge configd
-  $config_options = merge($powerdns::default_config, $config)
+  $config_options = deep_merge($powerdns::params::default_config, $config)
   validate_hash($config_options)
 
-  powerdns::install { $powerdns::package_name: } ->
+  powerdns::install { $powerdns::params::package_name: } ->
   powerdns::config { $config_file:
     config       => $config_options,
     file_path    => $config_file_path,
-    service_name => $powerdns::service_name,
+    include_dir  => $powerdns::params::config_include_dir,
+    service_name => $powerdns::params::service_name,
     user         => $user,
     group        => $group,
   } ->
-  powerdns::service { $powerdns::service_name:
+  powerdns::service { $powerdns::params::service_name:
     service_restart    => $service_restart,
     service_status     => $service_status,
     service_status_cmd => $service_status_cmd,

@@ -134,6 +134,7 @@ node 'dns.mynetwork.local' {
 }
 ```
 To configure PostgreSQL as backend, you can do:
+**NOTE**: See valid backend name in param file before to set variable `backend_name` this depend of the Operating System type
 ```puppet
 node 'dns.mynetwork.local' {
   class { '::powerdns::backend':
@@ -159,11 +160,10 @@ node 'dns.mynetwork.local' {
     service_enable     => true,
     service_ensure     => 'running',
     service_status     => true,
-    service_status_cmd => '/usr/bin/rec_control ping 2>/dev/null 1>/dev/null'
+    service_status_cmd => '/usr/bin/rec_control ping 2>/dev/null 1>/dev/null',
     config => {
-      'allow-from '                => '192.168.1.0/24',
-      'aaaa-additional-processing' => true,
-      'local-port'                 => 5353,
+      'allow-from'                 => '192.168.1.0/24',
+      'local-port'                 => 53,
       'etc-hosts-file'             => '/etc/hosts',
     }
   }
@@ -184,7 +184,11 @@ node 'dns.mynetwork.local' {
 
 ## Limitations
 
-This module could not manage DNS records, this only can be used as configuration of [PowerDNS](https://www.powerdns.com/).
+* This module could not manage DNS records, this only can be used as
+configuration of [PowerDNS](https://www.powerdns.com/).
+* If you change backend type, it doesn't remove your old backend file config
+from the `/etc/[pdns|powerdns]/pdns.d/pdns.local.[backend type].conf`, so is
+neccesay that you remove it after change the backend type to use the new backend.
 
 ## Development / contributing
 

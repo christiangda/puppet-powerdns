@@ -14,9 +14,9 @@ describe 'powerdns::recursor', type: 'class' do
         }
       end
 
-      let(:recursor_package_name) { 'pdns-recursor' }
-      let(:config_file_path)      { '/etc/pdns' }
-      let(:recursor_config_file)  { 'recursor.conf' }
+      let(:recursor_package_name)     { 'pdns-recursor' }
+      let(:recursor_config_file_path) { '/etc/pdns-recursor' }
+      let(:recursor_config_file)      { 'recursor.conf' }
 
 
       context 'tests with the default parameters' do
@@ -28,7 +28,8 @@ describe 'powerdns::recursor', type: 'class' do
         it { is_expected.to contain_package("#{recursor_package_name}") }
 
         it { is_expected.to contain_powerdns__config("#{recursor_config_file}") }
-        it { is_expected.to create_file("#{config_file_path}/#{recursor_config_file}") }
+        it { is_expected.to create_file("#{recursor_config_file_path}/#{recursor_config_file}") }
+        it { is_expected.to create_file("#{recursor_config_file_path}/#{recursor_config_file}") }
 
         it { is_expected.to contain_powerdns__service("#{recursor_package_name}") }
         it { is_expected.to contain_service("#{recursor_package_name}") }

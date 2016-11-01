@@ -41,6 +41,8 @@ group :development do
 end
 
 group :acceptance do
-  gem 'beaker'      , '<= 3.0.0', require: false if RUBY_VERSION < '2.0.0'
-  gem 'beaker-rspec', '<= 5.6.0', require: false if RUBY_VERSION < '2.0.0'
+  gem 'beaker'                  , require: false if RUBY_VERSION >= '2.5.0'
+  gem 'beaker-rspec'            , require: false if RUBY_VERSION >= '2.5.0'
+  gem 'serverspec'
+  gem 'beaker-puppet_install_helper'
 end

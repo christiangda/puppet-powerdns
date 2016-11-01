@@ -19,6 +19,8 @@ describe 'powerdns', type: 'class' do
       let(:service_name)     { 'pdns' }
       let(:package_name)     { 'pdns-server' }
       let(:config_file)      { 'pdns.conf' }
+      let(:include_dir)      { "#{config_file_path}/pdns.d" }
+
 
       context 'tests with the default parameters' do
 
@@ -28,6 +30,7 @@ describe 'powerdns', type: 'class' do
 
         it { is_expected.to contain_powerdns__config("#{config_file}") }
         it { is_expected.to create_file("#{config_file_path}/#{config_file}") }
+        it { is_expected.to create_file("#{include_dir}") }
 
         it { is_expected.to contain_powerdns__install("#{package_name}") }
         it { is_expected.to contain_package("#{package_name}") }
