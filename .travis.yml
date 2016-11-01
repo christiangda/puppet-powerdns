@@ -1,6 +1,6 @@
 ---
 language: ruby
-bundler_args: --without development --path .vendor
+bundler_args: --without development --without acceptance --path .vendor
 script:
   - RAKE_ENV=ci bundle exec rake test
 rvm:
