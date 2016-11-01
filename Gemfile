@@ -34,15 +34,15 @@ group :test do
   gem 'simplecov'                             , require: false
 end
 
-
 group :development do
   gem 'travis'
+  gem 'travis-lint'
   gem 'puppet-blacksmith'
 end
 
 group :acceptance do
-  gem 'beaker'                  , require: false if RUBY_VERSION >= '2.5.0'
-  gem 'beaker-rspec'            , require: false if RUBY_VERSION >= '2.5.0'
+  gem 'beaker'                  , require: false if RUBY_VERSION >= '2.2.5'
+  gem 'beaker-rspec'            , require: false if RUBY_VERSION >= '2.2.5'
   gem 'serverspec'
   gem 'beaker-puppet_install_helper'
 end

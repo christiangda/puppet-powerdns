@@ -18,6 +18,12 @@ rescue LoadError
   puts 'ignoring group :development'
 end
 
+begin
+  require 'beaker/tasks/quick_start'
+rescue LoadError
+  puts 'ignoring group :acceptance'
+end
+
 exclude_paths = [
   'pkg/**/*',
   'vendor/**/*',
