@@ -76,7 +76,14 @@ class powerdns::params {
   $service_manage     = true
   $service_restart    = true
   $service_status     = true
-  $service_status_cmd = '/usr/bin/pdns_control ping 2>/dev/null 1>/dev/null'
+  case $::lsbdistcodename {
+    'xenial': {
+      $service_status_cmd = '/usr/bin/pdns_control rping 2>/dev/null 1>/dev/null'
+    }
+    default: {
+      $service_status_cmd = '/usr/bin/pdns_control ping 2>/dev/null 1>/dev/null'
+    }
+  }
   $config_include_dir = "${config_file_path}/pdns.d"
   $config_file_backup = true
   $default_config     = {
@@ -109,7 +116,6 @@ class powerdns::params {
   $recursor_service_name       = 'pdns-recursor'
   $recursor_service_restart    = true
   $recursor_service_status     = true
-  $recursor_service_status_cmd = '/usr/bin/rec_control ping 2>/dev/null 1>/dev/null'
   $recursor_default_config     = {
     'allow-from'               => '127.0.0.1',
     'config-dir'               => $recursor_config_file_path,
