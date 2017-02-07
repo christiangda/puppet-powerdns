@@ -36,6 +36,7 @@ class powerdns::params {
       $recursor_config_file_path = '/etc/pdns-recursor'
       $recursor_user             ='pdns-recursor'
       $recursor_group            ='pdns-recursor'
+      $backend_file_perms        = '0600'
     }
     'Debian', 'Ubuntu': {
       # main application
@@ -61,6 +62,7 @@ class powerdns::params {
       $recursor_config_file_path = '/etc/powerdns'
       $recursor_user             ='pdns'
       $recursor_group            ='pdns'
+      $backend_file_perms        = '0640'
     }
     default: {
       fail("\"${module_name}\" provides no package default value
