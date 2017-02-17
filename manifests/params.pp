@@ -80,8 +80,9 @@ class powerdns::params {
     'xenial': {
       $service_status_cmd = '/usr/bin/pdns_control rping 2>/dev/null 1>/dev/null'
     }
-      default: {
-    $service_status_cmd = '/usr/bin/pdns_control ping 2>/dev/null 1>/dev/null'
+    default: {
+      $service_status_cmd = '/usr/bin/pdns_control ping 2>/dev/null 1>/dev/null'
+    }
   }
   $config_include_dir = "${config_file_path}/pdns.d"
   $config_file_backup = true
