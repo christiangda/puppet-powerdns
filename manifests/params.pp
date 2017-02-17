@@ -63,6 +63,11 @@ class powerdns::params {
       $recursor_user             ='pdns'
       $recursor_group            ='pdns'
       $backend_file_perms        = '0640'
+      case $::lsbdistcodename {
+        'xenial': {
+          $service_status_cmd = '/usr/bin/pdns_control rping 2>/dev/null 1>/dev/null'
+        }
+      }
     }
     default: {
       fail("\"${module_name}\" provides no package default value
