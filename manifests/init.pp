@@ -63,9 +63,10 @@ class powerdns (
     user         => $user,
     group        => $group,
   } ->
+
   powerdns::service { $powerdns::params::service_name:
     service_restart    => $service_restart,
     service_status     => $service_status,
-    service_status_cmd => $service_status_cmd,
+    service_status_cmd => $powerdns::params::service_status_cmd,
   }
 }
