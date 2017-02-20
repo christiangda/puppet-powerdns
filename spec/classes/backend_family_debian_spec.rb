@@ -46,7 +46,7 @@ describe 'powerdns::backend', type: 'class' do
           is_expected.to create_file("#{config_file}").with(
             'ensure' => 'file',
             'path'   => "#{config_file}",
-            'mode'   => '0600',
+            'mode'   => '0640',
             'owner'  => "#{user}",
             'group'  => "#{group}",
             'backup' => "#{config_file_backup}"

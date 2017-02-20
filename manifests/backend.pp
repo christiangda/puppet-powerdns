@@ -39,7 +39,7 @@ class powerdns::backend (
     ensure  => 'file',
     path    => $config_file,
     content => template("${module_name}/config/KEY-VALUE-conf-file.erb"),
-    mode    => '0600',
+    mode    => $powerdns::backend_file_perms,
     owner   => $powerdns::user,
     group   => $powerdns::group,
     notify  => Service[$powerdns::params::service_name],
