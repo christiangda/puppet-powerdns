@@ -7,7 +7,7 @@ define powerdns::service (
     $service_restart    = true,
     $service_status     = true,
     $service_status_cmd = undef,
-  ) inherits powerdns::params {
+  ) {
 
   if $service_manage == true {
     service { $service_name:
