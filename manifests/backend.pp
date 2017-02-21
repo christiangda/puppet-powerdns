@@ -14,6 +14,12 @@ class powerdns::backend (
   if ! ($ensure in [ 'present', 'installed', 'absent', 'purged', 'held', 'latest' ]) {
     fail("${ensure} is not a valid status parameter value")
   }
+  # check if the backend is included in the pdns package (as in Debian jessie),
+  # false if it's in an extra package.
+  $backend_included = (
+    $::os['name'] == 'Debian' and
+    $::os['release']['major'] == '8' and
+    $backend_name == 'bind')
 
   validate_hash($config)
 
@@ -34,7 +40,12 @@ class powerdns::backend (
     $options = $config
   }
 
-  powerdns::install { "pdns-backend-${backend_name}": } ->
+  if ! $backend_included {
+    powerdns::install { "pdns-backend-${backend_name}":
+      before => File[$config_file]
+    }
+  }
+
   file { $config_file:
     ensure  => 'file',
     path    => $config_file,
