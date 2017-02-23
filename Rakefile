@@ -53,9 +53,7 @@ RSpec::Core::RakeTask.new(:acceptance) do |t|
   t.pattern = 'spec/acceptance'
 end
 
-RuboCop::RakeTask.new do |config|
-  config.ignore_paths = exclude_paths
-end
+RuboCop::RakeTask.new
 
 task test: [
   :rubocop,

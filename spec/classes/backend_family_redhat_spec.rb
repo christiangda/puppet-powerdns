@@ -22,6 +22,8 @@ describe 'powerdns::backend', type: 'class' do
       let(:config_file_backup) { true }
       let(:config_file_path)   { '/etc/pdns' }
       let(:backend_conf_path)  { "#{config_file_path}/pdns.d" }
+      let(:backend_file_perms) { '0600' }
+
       let(:default_backend_config_file_prefix) { 'pdns.local' }
 
       let(:config_file) { "#{backend_conf_path}/#{default_backend_config_file_prefix}.g#{backend_name}.conf" }
@@ -46,7 +48,7 @@ describe 'powerdns::backend', type: 'class' do
           is_expected.to create_file("#{config_file}").with(
             'ensure' => 'file',
             'path'   => "#{config_file}",
-            'mode'   => '0600',
+            'mode'   => "#{backend_file_perms}",
             'owner'  => "#{user}",
             'group'  => "#{group}",
             'backup' => "#{config_file_backup}"

@@ -196,6 +196,7 @@ neccesay that you remove it after change the backend type to use the new backend
 * Create your feature branch (`git checkout -b my-new-feature`)
 * Install [rvm]()
 * Install ruby `rvm install 2.3`
+* Install ruby `rvm usage ruby-2.3.3` in my case
 * Install bundler app first (`gem install bundler`)
 * Install rubygems dependecies in .vendor folder (`bundle install --path .vendor`)
 * Make your changes / improvements / fixes / etc, and of course **your Unit Test** for new code

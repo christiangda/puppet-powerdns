@@ -30,13 +30,15 @@ class powerdns::params {
         '/etc/pdns/pdns.d/pdns.simplebind.conf',
         '/etc/pdns/pdns.d/pdns.local.conf',
       ]
-      $config_file_path          = '/etc/pdns'
-      $config_file               = 'pdns.conf'
-      $recursor_config_file      = 'recursor.conf'
-      $recursor_config_file_path = '/etc/pdns-recursor'
-      $recursor_user             ='pdns-recursor'
-      $recursor_group            ='pdns-recursor'
-      $backend_file_perms        = '0600'
+      $config_file_path            = '/etc/pdns'
+      $config_file                 = 'pdns.conf'
+      $recursor_config_file        = 'recursor.conf'
+      $recursor_config_file_path   = '/etc/pdns-recursor'
+      $recursor_user               ='pdns-recursor'
+      $recursor_group              ='pdns-recursor'
+      $backend_file_perms          = '0600'
+      $service_status_cmd          = '/usr/bin/pdns_control rping 2>/dev/null 1>/dev/null'
+      $recursor_service_status_cmd = '/usr/bin/rec_control ping 2>/dev/null 1>/dev/null'
     }
     'Debian', 'Ubuntu': {
       # main application
@@ -63,6 +65,17 @@ class powerdns::params {
       $recursor_user             ='pdns'
       $recursor_group            ='pdns'
       $backend_file_perms        = '0640'
+
+      case $::lsbdistcodename {
+        'xenial': {
+          $service_status_cmd          = '/usr/bin/pdns_control rping 2>/dev/null 1>/dev/null'
+          $recursor_service_status_cmd = '/usr/bin/rec_control ping 2>/dev/null 1>/dev/null'
+        }
+        default: {
+          $service_status_cmd          = '/usr/bin/pdns_control ping 2>/dev/null 1>/dev/null'
+          $recursor_service_status_cmd = '/usr/bin/rec_control ping 2>/dev/null 1>/dev/null'
+        }
+      }
     }
     default: {
       fail("\"${module_name}\" provides no package default value
@@ -76,14 +89,6 @@ class powerdns::params {
   $service_manage     = true
   $service_restart    = true
   $service_status     = true
-  case $::lsbdistcodename {
-    'xenial': {
-      $service_status_cmd = '/usr/bin/pdns_control rping 2>/dev/null 1>/dev/null'
-    }
-    default: {
-      $service_status_cmd = '/usr/bin/pdns_control ping 2>/dev/null 1>/dev/null'
-    }
-  }
   $config_include_dir = "${config_file_path}/pdns.d"
   $config_file_backup = true
   $default_config     = {

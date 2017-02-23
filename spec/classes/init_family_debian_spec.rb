@@ -11,7 +11,8 @@ describe 'powerdns', type: 'class' do
           'operatingsystem' => distro,
           'kernel'          => 'Linux',
           'osfamily'        => 'Debian',
-          'lsbdistid'       => 'Debian'
+          'lsbdistid'       => 'Debian',
+          'lsbdistcodename' => 'xenial'
         }
       end
 
