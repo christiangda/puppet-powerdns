@@ -310,7 +310,7 @@ Style/EmptyLiteral:
 Metrics/LineLength:
   Enabled: false
 
-Style/MethodCallParentheses:
+Style/MethodCallWithoutArgsParentheses:
   Enabled: true
 
 Style/MethodDefParentheses:
@@ -488,4 +488,10 @@ Style/UnneededInterpolation:
   Enabled: false
 
 Style/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Bundler/DuplicatedGem:
   Enabled: false
