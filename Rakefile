@@ -33,7 +33,7 @@ exclude_paths = [
 
 log_format = '%{path}:%{linenumber}:%{check}:%{KIND}:%{message}'
 
-PuppetLint::RakeTask.new :lint do |config|
+PuppetLint::RakeTask.new(:lint) do |config|
   config.disable_checks = ['disable_80chars']
   config.fail_on_warnings = true
   config.with_context = true
@@ -53,7 +53,9 @@ RSpec::Core::RakeTask.new(:acceptance) do |t|
   t.pattern = 'spec/acceptance'
 end
 
-RuboCop::RakeTask.new
+RuboCop::RakeTask.new do |config|
+  config.ignore_paths = exclude_paths
+end
 
 task test: [
   :rubocop,
