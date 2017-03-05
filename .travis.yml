@@ -4,9 +4,9 @@ bundler_args: --without development --without acceptance --path .vendor
 script:
   - RAKE_ENV=ci bundle exec rake test
 rvm:
-  - 2.0.0
-  - 2.1.0
-  - 2.3.1
+  - 2.2.6
+  - 2.3.3
+  - 2.4.0
 env:
   - PUPPET_VERSION="~> 3.8.0" STRICT_VARIABLES=yes
   - PUPPET_VERSION="~> 4.3.0" STRICT_VARIABLES=yes
@@ -16,12 +16,6 @@ env:
   - PUPPET_VERSION="~> 4.7.0" STRICT_VARIABLES=yes
   - PUPPET_VERSION="~> 4.8.0" STRICT_VARIABLES=yes
   - PUPPET_VERSION="~> 4.9.0" STRICT_VARIABLES=yes
-matrix:
-  exclude:
-  - rvm: 2.3.1
-    env: PUPPET_VERSION="~> 3.8.0" STRICT_VARIABLES=yes
-  - rvm: 2.0.0
-    env: PUPPET_VERSION="~> 4.8.0" STRICT_VARIABLES=yes
 branches:
   only:
     - master
