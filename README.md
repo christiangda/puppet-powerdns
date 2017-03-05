@@ -205,8 +205,7 @@ neccesay that you remove it after change the backend type to use the new backend
 * Push to the branch (`git push origin my-new-feature`)
 * [Create new Pull Request](https://github.com/christiangda/puppet-powerdns/pull/new/master)
 
-Of course, bug reports and suggestions for improvements are always
-welcome. GitHub pull requests are even better! :-)
+**Of course, bug reports and suggestions for improvements are always welcome.**
 
 You can also support my work on powerdns via
 
