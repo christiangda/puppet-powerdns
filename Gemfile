@@ -2,12 +2,9 @@ source 'https://rubygems.org'
 
 group :test do
   gem 'codeclimate-test-reporter', require: false
-  gem 'google-api-client', '<= 0.9.4', require: false if RUBY_VERSION < '2.0.0'
-  gem 'json_pure', '<= 2.0.1', require: false if RUBY_VERSION < '2.0.0'
   gem 'metadata-json-lint'
   gem 'net-http-persistent', require: false if RUBY_VERSION >= '2.3.0'
   gem 'net-http-persistent', '2.9.4', require: false if RUBY_VERSION < '2.3.0'
-  gem 'public_suffix ', '<= 1.4.6', require: false if RUBY_VERSION < '2.0.0'
   gem 'puppet', ENV['PUPPET_GEM_VERSION'] || '>= 3.8.0'
   gem 'puppet-doc-lint'
   gem 'puppet-lint'
@@ -29,9 +26,7 @@ group :test do
   gem 'rspec-puppet'
   gem 'rspec-puppet-facts'
   gem 'rspec-puppet-utils'
-  gem 'rubocop', '0.41.2', require: false if RUBY_VERSION < '2.0.0'
   gem 'rubocop', require: false if RUBY_VERSION >= '2.0.0'
-  gem 'rubocop-rspec', '~> 1.6', require: false if RUBY_VERSION >= '2.3.0'
   gem 'simplecov', require: false
 end
 
