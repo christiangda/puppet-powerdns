@@ -7,6 +7,7 @@ group :test do
   gem 'metadata-json-lint'
   gem 'net-http-persistent', require: false if RUBY_VERSION >= '2.3.0'
   gem 'net-http-persistent', '2.9.4', require: false if RUBY_VERSION < '2.3.0'
+  gem 'public_suffix ', '<= 1.4.6', require: false if RUBY_VERSION < '2.0.0'
   gem 'puppet', ENV['PUPPET_GEM_VERSION'] || '>= 3.8.0'
   gem 'puppet-doc-lint'
   gem 'puppet-lint'
