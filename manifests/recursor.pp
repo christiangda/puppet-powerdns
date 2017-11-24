@@ -45,7 +45,7 @@ class powerdns::recursor (
     values       => $config_options,
     file_path    => $config_file_path,
     service_name => $service_name,
-  } ->
+  } ~>
   ::powerdns::service { $service_name:
     service_restart    => $service_restart,
     service_status     => $service_status,
