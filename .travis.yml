@@ -1,11 +1,25 @@
 ---
 language: ruby
-bundler_args: --without development
-script: bundle exec rake test
+bundler_args: --without development --without acceptance --path .vendor
+script:
+  - RAKE_ENV=ci bundle exec rake test
 rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.1.0
+  - 2.2.6
+  - 2.3.3
+  - 2.4.0
 env:
-  - PUPPET_VERSION="~> 3.0"
-  - PUPPET_VERSION="~> 4.0"
+  - PUPPET_VERSION="~> 3.8.0" STRICT_VARIABLES=yes
+  - PUPPET_VERSION="~> 4.3.0" STRICT_VARIABLES=yes
+  - PUPPET_VERSION="~> 4.4.0" STRICT_VARIABLES=yes
+  - PUPPET_VERSION="~> 4.5.0" STRICT_VARIABLES=yes
+  - PUPPET_VERSION="~> 4.6.0" STRICT_VARIABLES=yes
+  - PUPPET_VERSION="~> 4.7.0" STRICT_VARIABLES=yes
+  - PUPPET_VERSION="~> 4.8.0" STRICT_VARIABLES=yes
+  - PUPPET_VERSION="~> 4.9.0" STRICT_VARIABLES=yes
+branches:
+  only:
+    - master
+    - develop
+addons:
+  code_climate:
+    repo_token: 47731ce5e6b9ba7f62a4c4a710eafe0df8fbf66bc11e369ab746df096a2b0c9f
