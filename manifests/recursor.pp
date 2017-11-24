@@ -45,7 +45,7 @@ class powerdns::recursor (
     service_name => $powerdns::params::recursor_service_name,
     user         => $user,
     group        => $group,
-  } ->
+  } ~>
   powerdns::service { $powerdns::params::recursor_service_name:
     service_restart    => $service_restart,
     service_status     => $service_status,
