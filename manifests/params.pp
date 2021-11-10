@@ -92,7 +92,6 @@ class powerdns::params {
   $config_include_dir = "${config_file_path}/pdns.d"
   $config_file_backup = true
   $default_config     = {
-    'allow-recursion'           => '127.0.0.1',
     'config-dir'                => $config_file_path,
     'local-address'             => '0.0.0.0',
     'local-port'                => '53',

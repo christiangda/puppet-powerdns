@@ -126,6 +126,7 @@ node 'dns.mynetwork.local' {
     service_status     => true,
     service_status_cmd => '/usr/bin/pdns_control ping 2>/dev/null 1>/dev/null',
     config => {
+      'allow-recursion' => '127.0.0.1',
       'allow-from'      => '192.168.1.0/24',
       'local-port'      => 53,
       'query-cache-ttl' => 20,
