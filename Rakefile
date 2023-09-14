@@ -1,67 +1,88 @@
-require 'rubygems'
-require 'rspec/core/rake_task'
+# frozen_string_literal: true
+
+require 'bundler'
+require 'puppet_litmus/rake_tasks' if Gem.loaded_specs.key? 'puppet_litmus'
 require 'puppetlabs_spec_helper/rake_tasks'
-require 'puppet-lint/tasks/puppet-lint'
 require 'puppet-syntax/tasks/puppet-syntax'
-require 'metadata-json-lint/rake_task'
-require 'rubocop/rake_task'
+require 'github_changelog_generator/task' if Gem.loaded_specs.key? 'github_changelog_generator'
+require 'puppet-strings/tasks' if Gem.loaded_specs.key? 'puppet-strings'
 
-begin
-  require 'puppet_blacksmith/rake_tasks'
+def changelog_user
+  return unless Rake.application.top_level_tasks.include? "changelog"
+  returnVal = nil || JSON.load(File.read('metadata.json'))['author']
+  raise "unable to find the changelog_user in .sync.yml, or the author in metadata.json" if returnVal.nil?
+  puts "GitHubChangelogGenerator user:#{returnVal}"
+  returnVal
+end
 
-  Blacksmith::RakeTask.new do |t|
-    t.tag_pattern = 'v%s' # Use a custom pattern with git tag. %s is replaced with the version number.
-    t.build = false # do not build the module nor push it to the Forge, just do the tagging [:clean, :tag, :bump_commit]
+def changelog_project
+  return unless Rake.application.top_level_tasks.include? "changelog"
+
+  returnVal = nil
+  returnVal ||= begin
+    metadata_source = JSON.load(File.read('metadata.json'))['source']
+    metadata_source_match = metadata_source && metadata_source.match(%r{.*\/([^\/]*?)(?:\.git)?\Z})
+
+    metadata_source_match && metadata_source_match[1]
   end
 
-rescue LoadError
-  puts 'ignoring group :development'
+  raise "unable to find the changelog_project in .sync.yml or calculate it from the source in metadata.json" if returnVal.nil?
+
+  puts "GitHubChangelogGenerator project:#{returnVal}"
+  returnVal
 end
 
-begin
-  require 'beaker/tasks/quick_start'
-rescue LoadError
-  puts 'ignoring group :acceptance'
+def changelog_future_release
+  return unless Rake.application.top_level_tasks.include? "changelog"
+  returnVal = "v%s" % JSON.load(File.read('metadata.json'))['version']
+  raise "unable to find the future_release (version) in metadata.json" if returnVal.nil?
+  puts "GitHubChangelogGenerator future_release:#{returnVal}"
+  returnVal
 end
 
-exclude_paths = [
-  'pkg/**/*',
-  'vendor/**/*',
-  '.vendor/**/*',
-  'spec/**/*'
-]
+PuppetLint.configuration.send('disable_relative')
 
-log_format = '%{path}:%{linenumber}:%{check}:%{KIND}:%{message}'
 
-PuppetLint::RakeTask.new(:lint) do |config|
-  config.disable_checks = ['disable_80chars']
-  config.fail_on_warnings = true
-  config.with_context = true
-  config.ignore_paths = exclude_paths
-  config.log_format = log_format
+if Gem.loaded_specs.key? 'github_changelog_generator'
+  GitHubChangelogGenerator::RakeTask.new :changelog do |config|
+    raise "Set CHANGELOG_GITHUB_TOKEN environment variable eg 'export CHANGELOG_GITHUB_TOKEN=valid_token_here'" if Rake.application.top_level_tasks.include? "changelog" and ENV['CHANGELOG_GITHUB_TOKEN'].nil?
+    config.user = "#{changelog_user}"
+    config.project = "#{changelog_project}"
+    config.future_release = "#{changelog_future_release}"
+    config.exclude_labels = ['maintenance']
+    config.header = "# Change log\n\nAll notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org)."
+    config.add_pr_wo_labels = true
+    config.issues = false
+    config.merge_prefix = "### UNCATEGORIZED PRS; LABEL THEM ON GITHUB"
+    config.configure_sections = {
+      "Changed" => {
+        "prefix" => "### Changed",
+        "labels" => ["backwards-incompatible"],
+      },
+      "Added" => {
+        "prefix" => "### Added",
+        "labels" => ["enhancement", "feature"],
+      },
+      "Fixed" => {
+        "prefix" => "### Fixed",
+        "labels" => ["bug", "documentation", "bugfix"],
+      },
+    }
+  end
+else
+  desc 'Generate a Changelog from GitHub'
+  task :changelog do
+    raise <<EOM
+The changelog tasks depends on recent features of the github_changelog_generator gem.
+Please manually add it to your .sync.yml for now, and run `pdk update`:
+---
+Gemfile:
+  optional:
+    ':development':
+      - gem: 'github_changelog_generator'
+        version: '~> 1.15'
+        condition: "Gem::Version.new(RUBY_VERSION.dup) >= Gem::Version.new('2.3.0')"
+EOM
+  end
 end
 
-RSpec::Core::RakeTask.new(:spec_verbose) do |t|
-  t.pattern = 'spec/{classes,defines,lib,reports}/**/*_spec.rb'
-  t.rspec_opts = [
-    '--format documentation',
-    '--color'
-  ]
-end
-
-RSpec::Core::RakeTask.new(:acceptance) do |t|
-  t.pattern = 'spec/acceptance'
-end
-
-RuboCop::RakeTask.new
-
-task test: [
-  :rubocop,
-  :metadata_lint,
-  :syntax,
-  :lint,
-  :validate,
-  :spec
-]
-
-# task default: test:
