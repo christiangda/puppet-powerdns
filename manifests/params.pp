@@ -5,7 +5,7 @@ class powerdns::params {
   $group          = 'pdns'
   $package_ensure = 'present'
   # packages
-  case $::operatingsystem {
+  case $facts['os']['name'] {
     'RedHat', 'CentOS', 'Fedora', 'Scientific', 'Amazon', 'OracleLinux': {
       # main application
       $package_name     = ['pdns', 'pdns-tools']
@@ -66,7 +66,7 @@ class powerdns::params {
       $recursor_group            ='pdns'
       $backend_file_perms        = '0640'
 
-      case $::lsbdistcodename {
+      case $facts['os']['distro']['codename'] {
         'xenial': {
           $service_status_cmd          = '/usr/bin/pdns_control rping 2>/dev/null 1>/dev/null'
           $recursor_service_status_cmd = '/usr/bin/rec_control ping 2>/dev/null 1>/dev/null'
@@ -79,7 +79,7 @@ class powerdns::params {
     }
     default: {
       fail("\"${module_name}\" provides no package default value
-            for \"${::operatingsystem}\"")
+            for \"${facts['os']['name']}\"")
     }
   }
 
